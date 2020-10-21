@@ -1,4 +1,4 @@
-package collectme.analytics.boundries.dto.responses;
+package com.pf.boundries.dto.responses;
 
 import lombok.Data;
 

@@ -1,0 +1,98 @@
+<div class='container' *ngIf="!isCreateViewExpandable">
+  <div class='row'>
+    <div class="col align-self-center">
+      <input *ngIf="!isUsernameError()" [(ngModel)]="username" placeholder='Username' />
+      <input class="input-error" *ngIf="isUsernameError()" [(ngModel)]="username" placeholder='Username' />
+    </div>
+  </div>
+
+  <div class='row mt-4'>
+    <div class="col align-self-center">
+      <input *ngIf="!isPasswordError()" type="password" [(ngModel)]="password" placeholder='Password' />
+      <input class="input-error" *ngIf="isPasswordError()" type="password" [(ngModel)]="password"
+        placeholder='Password' />
+    </div>
+  </div>
+
+  <div class='row mt-4'>
+    <div class="col align-self-center">
+      <button class="btn request-button" (click)='logIn()'>Sign in</button>
+    </div>
+  </div>
+
+  <div *ngIf="message.length > 0" class='row mt-4'>
+    <div class="col align-self-center">
+      <span class="message">{{message}}</span>
+    </div>
+  </div>
+
+  <div class='row mt-4'>
+    <div class="col align-self-center">
+      <p class="link-word">OR</p>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class="col align-self-center">
+      <button class="btn change-view-button" (click)="changePageView()">Create a
+        new account</button>
+    </div>
+  </div>
+</div>
+
+<div class='container' *ngIf="isCreateViewExpandable">
+  <div class='row'>
+    <div class="col align-self-center">
+      <input *ngIf="!isEmailError()" [(ngModel)]="email" placeholder='E-mail' />
+      <input *ngIf="isEmailError()" class="input-error" [(ngModel)]="email" placeholder='E-mail' />
+    </div>
+  </div>
+
+  <div class='row mt-4'>
+    <div class="col align-self-center">
+      <input *ngIf="!isUsernameError()" [(ngModel)]="username" placeholder='Username' />
+      <input *ngIf="isUsernameError()" class="input-error" [(ngModel)]="username" placeholder='Username' />
+    </div>
+  </div>
+
+  <div class='row mt-4'>
+    <div class="col align-self-center">
+      <input *ngIf="!isPasswordError()" type="password" [(ngModel)]="password" placeholder='Password' />
+      <input *ngIf="isPasswordError()" class="input-error" type="password" [(ngModel)]="password"
+        placeholder='Password' />
+    </div>
+  </div>
+
+  <div class='row mt-4'>
+    <div class="col align-self-center">
+      <input *ngIf="!isConfirmPasswordError()" type="password" [(ngModel)]="currentPassword"
+        placeholder='Confirm password' />
+      <input *ngIf="isConfirmPasswordError()" class="input-error" type="password" [(ngModel)]="currentPassword"
+        placeholder='Confirm password' />
+    </div>
+  </div>
+
+  <div class='row mt-4'>
+    <div class="col align-self-center">
+      <button class="btn request-button" (click)='createUser()'>Sign up</button>
+    </div>
+  </div>
+
+  <div *ngIf="message.length > 0" class='row mt-4'>
+    <div class="col align-self-center">
+      <span class="message">{{message}}</span>
+    </div>
+  </div>
+
+  <div class='row mt-4'>
+    <div class="col align-self-center">
+      <span class="link-word">OR</span>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class="col align-self-center">
+      <button class="btn change-view-button" (click)="changePageView()">Sign in to an account</button>
+    </div>
+  </div>
+</div>

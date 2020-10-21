@@ -2,10 +2,9 @@ package com.pf.boundries.controllers;
 
 
 import com.pf.entities.models.User;
-import collectme.analytics.boundries.dto.requests.LoginRequest;
-import collectme.analytics.boundries.dto.requests.SignupRequest;
-import collectme.analytics.boundries.dto.responses.JwtResponse;
-import collectme.analytics.boundries.dto.responses.MessageResponse;
+import com.pf.boundries.dto.requests.LoginRequest;
+import com.pf.boundries.dto.requests.SignupRequest;
+import com.pf.boundries.dto.responses.JwtResponse;
 import com.pf.security.JwtUtils;
 import com.pf.services.implementations.UserDetailsImpl;
 import com.pf.services.interfaces.UserService;
@@ -28,7 +27,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600, allowedHeaders = "*")
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -68,11 +67,11 @@ public class UserController {
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
         if (userService.ExistsByUsername(signUpRequest.getUsername())) {
-            return new ResponseEntity<>(new MessageResponse("Error: Username is already taken!"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Username is already taken!", HttpStatus.BAD_REQUEST);
         }
 
         if (userService.ExistsByEmail(signUpRequest.getEmail())) {
-            return new ResponseEntity<>(new MessageResponse("Error: Email is already in use!"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Email is already in use!", HttpStatus.BAD_REQUEST);
         }
 
         User user = new User(signUpRequest.getUsername(),
@@ -81,6 +80,6 @@ public class UserController {
 
         userService.Save(user);
         
-        return new ResponseEntity<>(new MessageResponse("User registered successfully!"), HttpStatus.CREATED);
+        return new ResponseEntity<>("User registered successfully!", HttpStatus.CREATED);
     }
 }

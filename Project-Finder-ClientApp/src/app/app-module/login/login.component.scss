@@ -1,0 +1,58 @@
+@import "../../shared/variables.scss";
+
+.container {
+  text-align: center;
+  margin-top: 10%;
+}
+
+input {
+  background-color: $input-color;
+  padding-left: 10px;
+  height: 40px;
+  width: 300px;
+  font-size: 15px;
+  font-weight: bold;
+  border: none;
+  border-radius: 2px;
+  color: $forms-characters-color;
+
+  &:focus {
+    border: none;
+    border: 2px solid $input-border-color;
+    border-radius: 2px;
+    box-shadow: 0 0 5px 0 $input-border-color;
+  }
+}
+
+.request-button {
+  background-color: $access-button-color;
+  color: $forms-characters-color;
+  height: 40px;
+  width: 300px;
+  font-weight: bold;
+}
+
+.change-view-button {
+  color: $forms-characters-color;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.link-word {
+  color: $forms-characters-color;
+  font-weight: bold;
+}
+
+.input-error {
+  border: 2px solid $error-color;
+  border-radius: 2px;
+  box-shadow: 0 0 5px 0 $error-color;
+}
+
+.message {
+  display: inline-block;
+  color: $error-color;
+  width: 300px;
+  font-weight: 600;
+  text-align: left;
+}

@@ -1,0 +1,23 @@
+@import "../../shared/variables.scss";
+
+.menu {
+    background-color:$header-color;
+    height: 100px;
+}
+
+img{
+  height: 80px;
+
+}
+.navbar-collapse {
+  padding-top: 20px;
+}
+
+.nav-link {
+  font-size: 25px;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+}
