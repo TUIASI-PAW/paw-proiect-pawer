@@ -6,7 +6,7 @@ import com.pf.boundries.dto.requests.LoginRequest;
 import com.pf.boundries.dto.requests.SignupRequest;
 import com.pf.boundries.dto.responses.JwtResponse;
 import com.pf.security.JwtUtils;
-import com.pf.services.implementations.UserDetailsImpl;
+import com.pf.services.implementations.security.UserDetailsImpl;
 import com.pf.services.interfaces.UserService;
 
 import org.springframework.http.HttpStatus;

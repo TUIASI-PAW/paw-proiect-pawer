@@ -1,6 +1,6 @@
 package com.pf.security;
 
-import com.pf.services.implementations.UserDetailsImpl;
+import com.pf.services.implementations.security.UserDetailsImpl;
 import io.jsonwebtoken.*;
 
 import org.slf4j.Logger;

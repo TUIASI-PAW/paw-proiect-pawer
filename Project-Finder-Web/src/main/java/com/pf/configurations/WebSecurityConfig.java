@@ -2,7 +2,7 @@ package com.pf.configurations;
 
 import com.pf.security.AuthEntryPointJwt;
 import com.pf.security.AuthTokenFilter;
-import com.pf.services.implementations.UserDetailsServiceImpl;
+import com.pf.services.implementations.security.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -61,9 +61,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf()
                 .disable()
-                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
+                .exceptionHandling()
+                .authenticationEntryPoint(unauthorizedHandler)
                 .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
                 .antMatchers("/api/users/**")

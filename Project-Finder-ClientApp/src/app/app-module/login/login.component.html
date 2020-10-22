@@ -2,14 +2,14 @@
   <div class='row'>
     <div class="col align-self-center">
       <input *ngIf="!isUsernameError()" [(ngModel)]="username" placeholder='Username' />
-      <input class="input-error" *ngIf="isUsernameError()" [(ngModel)]="username" placeholder='Username' />
+      <input *ngIf="isUsernameError()" class="input-error" [(ngModel)]="username" placeholder='Username' />
     </div>
   </div>
 
   <div class='row mt-4'>
     <div class="col align-self-center">
       <input *ngIf="!isPasswordError()" type="password" [(ngModel)]="password" placeholder='Password' />
-      <input class="input-error" *ngIf="isPasswordError()" type="password" [(ngModel)]="password"
+      <input *ngIf="isPasswordError()" class="input-error" type="password" [(ngModel)]="password"
         placeholder='Password' />
     </div>
   </div>

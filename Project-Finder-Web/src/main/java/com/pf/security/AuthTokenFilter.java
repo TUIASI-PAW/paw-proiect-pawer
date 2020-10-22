@@ -1,6 +1,6 @@
 package com.pf.security;
 
-import com.pf.services.implementations.UserDetailsServiceImpl;
+import com.pf.services.implementations.security.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
