@@ -4,6 +4,7 @@ import { WriteUser } from './../../models/write-models/write-user';
 import { HttpService } from '../../services/http-service/http.service';
 import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private httpService: HttpService,
-    private tokenStorageService: TokenStorageService
+    private tokenStorageService: TokenStorageService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -54,6 +56,7 @@ export class LoginComponent implements OnInit {
           this.tokenStorageService.saveUser(readUser);
           this.clearFields();
           this.message = '';
+          this.router.navigate(['/board/myProjects']);
         },
         () => {
           this.message = 'Username or password is wrong!';
@@ -88,8 +91,12 @@ export class LoginComponent implements OnInit {
           username: this.username,
           password: this.password,
         };
+
         this.httpService.post<WriteUser>('users/signup', writeUser).subscribe(
-          () => {},
+          () => {
+            window.alert('User creat cu succes');
+            this.changePageView();
+          },
           (data: HttpErrorResponse) => {
             this.message = data.error;
           }

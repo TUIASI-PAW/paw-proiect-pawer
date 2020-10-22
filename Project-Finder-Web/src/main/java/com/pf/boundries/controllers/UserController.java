@@ -79,7 +79,7 @@ public class UserController {
                 encoder.encode(signUpRequest.getPassword()));
 
         userService.Save(user);
-        
-        return new ResponseEntity<>("User registered successfully!", HttpStatus.CREATED);
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

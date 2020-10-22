@@ -3,14 +3,20 @@
   <a class="navbar-brand" href="/login">
     <img src="../../../assets/logo.png" />
   </a>
-  <button *ngIf="isUserLoggedIn" class="navbar-toggler" (click)="toggleCollapsed()" type="button" aria-expanded="false"
-    aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span>
+  <button *ngIf="isUserLoggedIn()" class="navbar-toggler" (click)="toggleCollapsed()" type="button"
+    aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div *ngIf="isUserLoggedIn" class="navbar-collapse" (click)="isCollapsed=true" [hidden]="isCollapsed">
+  <div *ngIf="isUserLoggedIn()" class="navbar-collapse" (click)="isCollapsed=true" [hidden]="isCollapsed">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <button class="nav-link" href="/">Example</button>
+        <a class="nav-link" (click)="navigateToFind()">Find</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="navigateToMyProjects()">My projects</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="navigateToProfile()">Profile</a>
       </li>
     </ul>
   </div>

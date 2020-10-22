@@ -1,3 +1,4 @@
+import { TokenStorageService } from './../../services/token-storage-service/token-storage.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -8,11 +9,28 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
   isCollapsed = true;
-  isUserLoggedIn = false;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private tokenStorageService: TokenStorageService
+  ) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  isUserLoggedIn(): boolean {
+    return this.tokenStorageService.getUser() !== null;
+  }
+
+  navigateToProfile(): void {
+    this.router.navigate(['/board/profile']);
+  }
+
+  navigateToFind(): void {
+    this.router.navigate(['/board/find']);
+  }
+
+  navigateToMyProjects(): void {
+    this.router.navigate(['/board/myProjects']);
   }
 
   toggleCollapsed() {
