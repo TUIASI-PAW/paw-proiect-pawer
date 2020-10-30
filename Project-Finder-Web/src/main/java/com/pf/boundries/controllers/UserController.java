@@ -2,9 +2,9 @@ package com.pf.boundries.controllers;
 
 
 import com.pf.entities.models.User;
-import com.pf.boundries.dto.requests.LoginRequest;
-import com.pf.boundries.dto.requests.SignupRequest;
-import com.pf.boundries.dto.responses.JwtResponse;
+import com.pf.boundries.dto.read.LoginRequest;
+import com.pf.boundries.dto.read.SignupRequest;
+import com.pf.boundries.dto.write.JwtResponse;
 import com.pf.security.JwtUtils;
 import com.pf.services.implementations.security.UserDetailsImpl;
 import com.pf.services.interfaces.UserService;

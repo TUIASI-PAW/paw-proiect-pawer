@@ -1,4 +1,4 @@
-package com.pf.boundries.dto.responses;
+package com.pf.boundries.dto.write;
 
 import lombok.Data;
 

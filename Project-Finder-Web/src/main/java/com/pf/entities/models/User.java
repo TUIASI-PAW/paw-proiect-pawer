@@ -1,11 +1,13 @@
 package com.pf.entities.models;
 
 import lombok.Data;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Data
 @Entity
@@ -45,4 +47,8 @@ public class User {
         this.password = password;
         this.role = ERole.ROLE_USER;
     }
+
+    @Nullable
+    @ManyToMany(mappedBy = "team")
+    List<Project> projects;
 }

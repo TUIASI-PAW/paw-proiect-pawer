@@ -1,4 +1,4 @@
-package com.pf.boundries.dto.requests;
+package com.pf.boundries.dto.read;
 
 import lombok.Data;
 
