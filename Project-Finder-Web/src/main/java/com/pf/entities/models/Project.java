@@ -34,4 +34,11 @@ public class Project {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
     private User owner;
+
+    public void setTeam(List<Long> ids) {
+        for (int i = 0; i < ids.size(); i++) {
+            team.add(new User(ids.get(i)));
+        }
+
+    }
 }

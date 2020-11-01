@@ -28,14 +28,14 @@ public class DetailsController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping("/{id}")
-    ResponseEntity<?> GetDetailsByProjectId(@PathVariable Long id) {
+    @GetMapping("/{idProject}")
+    ResponseEntity<?> GetDetailsByProjectId(@PathVariable Long idProject) {
         try {
-            ReadDetails readDetails = modelMapper.map(detailsService.GetDetailsByProjectId(id), ReadDetails.class);
+            ReadDetails readDetails = modelMapper.map(detailsService.GetDetailsByProjectId(idProject), ReadDetails.class);
 
             return new ResponseEntity<>(readDetails, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 

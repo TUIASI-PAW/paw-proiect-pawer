@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DetailsRepository extends JpaRepository<Details, Long> {
-    @Query("SELECT d FROM Details d where d.project.id = : idProject ")
-    Details getDetailByProjectId(@Param("idProject") long idProject);
+    @Query("SELECT d FROM Details d where d.project.id = :idProject ")
+    Details getDetailsByProjectId(@Param("idProject") long idProject);
 
 }

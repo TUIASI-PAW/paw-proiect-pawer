@@ -24,7 +24,7 @@ public class ProjectServiceImpl implements ProjectService {
                 .findAll()
                 .stream()
                 .parallel()
-                .filter(m -> m.getTeam().contains(new User(userId)))
+                .filter(m -> m.getTeam().stream().parallel().filter(u -> u.getId() == userId).count() > 0)
                 .collect(Collectors.toList());
     }
 
@@ -34,7 +34,7 @@ public class ProjectServiceImpl implements ProjectService {
                 .findAll()
                 .stream()
                 .parallel()
-                .filter(m -> m.isAvailable() && !(m.getTeam().contains(new User(userId))))
+                .filter(m -> m.isAvailable() && !(m.getTeam().stream().parallel().filter(u -> u.getId() == userId).count() > 0))
                 .collect(Collectors.toList());
     }
 

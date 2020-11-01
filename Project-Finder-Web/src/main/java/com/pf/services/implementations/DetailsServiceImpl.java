@@ -16,8 +16,8 @@ public class DetailsServiceImpl implements DetailsService {
     }
 
     @Override
-    public Details GetDetailsByProjectId(long projectId) {
-        return detailsRepository.getDetailByProjectId(projectId);
+    public Details GetDetailsByProjectId(long idProject) {
+        return detailsRepository.getDetailsByProjectId(idProject);
     }
 
     @Override
