@@ -3,9 +3,11 @@ package com.pf.services.implementations;
 import com.pf.entities.models.Details;
 import com.pf.entities.repositories.DetailsRepository;
 import com.pf.services.interfaces.DetailsService;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class DetailsServiceImpl implements DetailsService {
     private final DetailsRepository detailsRepository;
 
