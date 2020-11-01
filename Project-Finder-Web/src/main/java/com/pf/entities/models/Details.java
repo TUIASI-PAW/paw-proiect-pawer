@@ -20,6 +20,7 @@ public class Details {
     private Date startDate;
 
     @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "project_id", referencedColumnName = "id")
     private Project project;
 
 }
