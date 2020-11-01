@@ -28,7 +28,7 @@ public class Project {
             joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    List<User> team = new ArrayList<>();
+    private List<User> team = new ArrayList<>();
 
     @Nullable
     @ManyToOne(fetch = FetchType.LAZY)
