@@ -32,7 +32,7 @@ public class DetailsController {
     ResponseEntity<?> GetDetailsByProjectId(@PathVariable Long id) {
         try {
             ReadDetails readDetails = modelMapper.map(detailsService.GetDetailsByProjectId(id), ReadDetails.class);
-            
+
             return new ResponseEntity<>(readDetails, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
