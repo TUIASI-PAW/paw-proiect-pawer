@@ -1,3 +1,4 @@
+import { BoardModule } from './../board-module/board.module';
 import { FindComponent } from './../board-module/find/find.component';
 import { MyProfileComponent } from './../board-module/my-profile/my-profile.component';
 import { MyProjectsComponent } from './../board-module/my-projects/my-projects.component';
@@ -15,6 +16,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 @NgModule({
   declarations: [AppComponent, NavbarComponent, LoginComponent],
   imports: [
+    BoardModule,
     FormsModule,
     BrowserModule,
     RouterModule.forRoot([

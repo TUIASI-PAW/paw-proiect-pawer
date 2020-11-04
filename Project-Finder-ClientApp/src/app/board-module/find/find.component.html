@@ -1,2 +1,26 @@
-<br>
-<p>find works!</p>
+<div class="project-container">
+
+  <div class="row">
+    <div *ngFor="let project of projects; index as i">
+      <div *ngIf="i < 4" class="col ml-5">
+        <app-project [project]="project"></app-project>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div *ngFor="let project of projects; index as i">
+      <div *ngIf="i >= 8" class="col ml-5">
+        <app-project [project]="project"></app-project>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div *ngFor="let project of projects; index as i">
+      <div *ngIf="i >= 8" class="col ml-5">
+        <app-project [project]="project"></app-project>
+      </div>
+    </div>
+  </div>
+</div>
