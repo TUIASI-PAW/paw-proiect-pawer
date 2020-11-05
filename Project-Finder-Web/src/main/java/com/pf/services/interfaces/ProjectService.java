@@ -1,6 +1,8 @@
 package com.pf.services.interfaces;
 
 import com.pf.entities.models.Project;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.*;
 
@@ -8,7 +10,7 @@ import java.util.*;
 public interface ProjectService {
     List<Project> GetMyProjects(long userId);
 
-    List<Project> GetAllAvailableProjects(long userId);
+    Page<Project> GetAllAvailableProjects(boolean isAvailable, Pageable paging);
 
     void Save(Project project);
 

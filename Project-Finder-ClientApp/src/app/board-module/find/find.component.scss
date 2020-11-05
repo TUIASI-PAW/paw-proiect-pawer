@@ -2,4 +2,19 @@
   margin: 10% 10%;
 }
 
+.fas {
+  opacity: 0.6;
+  margin-right: 10px;
+  font-size: 18px;
+  color: white;
 
+  &:hover {
+    opacity: 1;
+  }
+
+  cursor: pointer;
+}
+
+.projecst-nav {
+  margin-right: 20px;
+}

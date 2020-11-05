@@ -5,6 +5,8 @@ import com.pf.entities.repositories.UserRepository;
 import com.pf.services.interfaces.UserService;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -25,6 +27,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public Boolean ExistsByEmail(String email) {
         return this.userRepository.existsByEmail(email);
+    }
+
+    @Override
+    public User FindById(long id) throws Exception {
+        Optional<User> user =  this.userRepository.findById(id);
+
+        if (user.isPresent()) {
+            return user.get();
+        } else {
+            throw new Exception("User Not Found");
+        }
     }
 
 }

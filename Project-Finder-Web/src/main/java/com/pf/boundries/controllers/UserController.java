@@ -1,6 +1,8 @@
 package com.pf.boundries.controllers;
 
 
+import com.pf.boundries.dto.read.ReadDetails;
+import com.pf.boundries.dto.read.ReadUser;
 import com.pf.entities.models.User;
 import com.pf.boundries.dto.read.LoginRequest;
 import com.pf.boundries.dto.read.SignupRequest;
@@ -9,6 +11,7 @@ import com.pf.security.JwtUtils;
 import com.pf.services.implementations.security.UserDetailsImpl;
 import com.pf.services.interfaces.UserService;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,11 +20,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -35,13 +34,15 @@ public class UserController {
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder encoder;
     private final JwtUtils jwtUtils;
+    private final ModelMapper modelMapper;
 
     public UserController(UserService userService, AuthenticationManager authenticationManager,
-                          PasswordEncoder encoder, JwtUtils jwtUtils) {
+                          PasswordEncoder encoder, JwtUtils jwtUtils, ModelMapper modelMapper) {
         this.userService = userService;
         this.authenticationManager = authenticationManager;
         this.encoder = encoder;
         this.jwtUtils = jwtUtils;
+        this.modelMapper = modelMapper;
     }
 
     @PostMapping("/signin")
@@ -81,5 +82,15 @@ public class UserController {
         userService.Save(user);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
+    ResponseEntity<?> GetUserById(@PathVariable Long id) {
+        try {
+            User user = userService.FindById(id);
+            return new ResponseEntity<>(modelMapper.map(user, ReadUser.class),HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
     }
 }

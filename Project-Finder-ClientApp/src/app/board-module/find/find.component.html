@@ -1,26 +1,34 @@
-<div class="project-container">
+<div *ngIf="currentPage && projects" class="project-container">
 
-  <div class="row">
-    <div *ngFor="let project of projects; index as i">
-      <div *ngIf="i < 4" class="col ml-5">
+  <div *ngIf="currentPage.numberOfElements > 0" class="row">
+    <div *ngFor="let project of projects.slice(0, pageSize/noRows); index as i">
+      <div class="col ml-5">
         <app-project [project]="project"></app-project>
       </div>
     </div>
   </div>
 
-  <div class="row mt-5">
-    <div *ngFor="let project of projects; index as i">
-      <div *ngIf="i >= 8" class="col ml-5">
+  <div *ngIf="currentPage.numberOfElements >= pageSize/noRows" class="row mt-5">
+    <div *ngFor="let project of projects.slice(pageSize/noRows, 2*pageSize/noRows); index as i">
+      <div class="col ml-5">
         <app-project [project]="project"></app-project>
       </div>
     </div>
   </div>
 
-  <div class="row mt-5">
-    <div *ngFor="let project of projects; index as i">
-      <div *ngIf="i >= 8" class="col ml-5">
+  <div *ngIf="currentPage.numberOfElements >= 2* pageSize/noRows" class="row mt-5">
+    <div *ngFor="let project of projects.slice(2*pageSize/noRows, 3*pageSize/noRows); index as i">
+      <div class="col ml-5">
         <app-project [project]="project"></app-project>
       </div>
     </div>
   </div>
+
+  <div *ngIf="currentPage.numberOfElements > 0" class="row mt-3">
+    <div class="col ml-5">
+      <i *ngIf="!currentPage.first" class="fas fa-angle-double-left" (click)="getPreviousPage()"></i>
+      <i *ngIf="!currentPage.last" class="fas fa-angle-double-right" (click)="getNextPage()"></i>
+    </div>
+  </div>
+
 </div>

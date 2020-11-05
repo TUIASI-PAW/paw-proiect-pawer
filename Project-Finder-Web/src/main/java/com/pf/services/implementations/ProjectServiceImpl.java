@@ -1,14 +1,14 @@
 package com.pf.services.implementations;
 
 import com.pf.entities.models.Project;
-import com.pf.entities.models.User;
 import com.pf.entities.repositories.ProjectRepository;
 import com.pf.services.interfaces.ProjectService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
@@ -20,22 +20,12 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public List<Project> GetMyProjects(long userId) {
-        return projectRepository
-                .findAll()
-                .stream()
-                .parallel()
-                .filter(m -> m.getTeam().stream().parallel().filter(u -> u.getId() == userId).count() > 0)
-                .collect(Collectors.toList());
+        return null;
     }
 
     @Override
-    public List<Project> GetAllAvailableProjects(long userId) {
-        return projectRepository
-                .findAll()
-                .stream()
-                .parallel()
-                .filter(m -> m.isAvailable() && !(m.getTeam().stream().parallel().filter(u -> u.getId() == userId).count() > 0))
-                .collect(Collectors.toList());
+    public Page<Project> GetAllAvailableProjects(boolean isAvailable, Pageable paging) {
+        return projectRepository.findByIsAvailableOrderById(isAvailable, paging);
     }
 
     @Override

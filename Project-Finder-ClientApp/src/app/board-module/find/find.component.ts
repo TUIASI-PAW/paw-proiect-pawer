@@ -1,114 +1,62 @@
+import { Page } from './../../models/page';
+import { ReadUser } from './../../models/read-models/read-users';
+import { HttpService } from './../../services/http-service/http.service';
 import { ReadProject } from './../../models/read-models/read-project';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-find',
   templateUrl: './find.component.html',
   styleUrls: ['./find.component.scss'],
 })
-export class FindComponent implements OnInit {
+export class FindComponent implements OnInit, OnDestroy {
   projects: ReadProject[];
+  user: ReadUser;
+  currentPage: Page;
+  pageSize = 12;
+  noRows = 3;
+  subscription: Subscription;
 
-  constructor() {}
+  constructor(private httpService: HttpService) {}
 
   ngOnInit(): void {
-    this.projects = [
-      {
-        id: 1,
-        name: 'project1',
-        technologies: 'java kotlin',
-        isAvailable: true,
-        users_ids: [],
-        owner_id: 1,
-      },
-      {
-        id: 2,
-        name: 'project2',
-        technologies: 'angular c#',
-        isAvailable: true,
-        users_ids: [],
-        owner_id: 2,
-      },
-      {
-        id: 3,
-        name: 'project3',
-        technologies: 'java react',
-        isAvailable: true,
-        users_ids: [],
-        owner_id: 3,
-      },
-      {
-        id: 4,
-        name: 'project4',
-        technologies: 'c++ c',
-        isAvailable: true,
-        users_ids: [],
-        owner_id: 4,
-      },
-      {
-        id: 5,
-        name: 'project5',
-        technologies: 'java kotlin',
-        isAvailable: true,
-        users_ids: [],
-        owner_id: 5,
-      },
-      {
-        id: 6,
-        name: 'project6',
-        technologies: 'angular c#',
-        isAvailable: true,
-        users_ids: [],
-        owner_id: 6,
-      },
-      {
-        id: 7,
-        name: 'project7',
-        technologies: 'java react',
-        isAvailable: true,
-        users_ids: [],
-        owner_id: 7,
-      },
-      {
-        id: 8,
-        name: 'project8',
-        technologies: 'c++ c',
-        isAvailable: true,
-        users_ids: [],
-        owner_id: 8,
-      },
-      {
-        id: 9,
-        name: 'project5',
-        technologies: 'java kotlin',
-        isAvailable: true,
-        users_ids: [],
-        owner_id: 5,
-      },
-      {
-        id: 10,
-        name: 'project6',
-        technologies: 'angular c#',
-        isAvailable: true,
-        users_ids: [],
-        owner_id: 6,
-      },
-      {
-        id: 11,
-        name: 'project7',
-        technologies: 'java react',
-        isAvailable: true,
-        users_ids: [],
-        owner_id: 7,
-      },
-      {
-        id: 12,
-        name: 'project8',
-        technologies: 'c++ c',
-        isAvailable: true,
-        users_ids: [],
-        owner_id: 8,
-      },
-    ];
+    this.getPage(0, this.pageSize);
+  }
+
+  ngOnDestroy(): void {
+    this.closeSubscription();
+  }
+
+  getPage(pageNumber: number, pageSize: number): void {
+    this.closeSubscription();
+
+    this.subscription = this.httpService
+      .getAll<any>(`projects?page=${pageNumber}&size=${pageSize}`)
+      .subscribe((data) => {
+        this.projects = data['content'];
+        this.currentPage = {
+          totalPages: data['totalPages'],
+          number: data['number'],
+          last: data['last'],
+          first: data['first'],
+          size: data['size'],
+          numberOfElements: data['numberOfElements'],
+        };
+      });
+  }
+
+  getPreviousPage(): void {
+    this.getPage(this.currentPage.number - 1, this.pageSize);
+  }
+
+  getNextPage(): void {
+    this.getPage(this.currentPage.number + 1, this.pageSize);
+  }
+
+  closeSubscription(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }

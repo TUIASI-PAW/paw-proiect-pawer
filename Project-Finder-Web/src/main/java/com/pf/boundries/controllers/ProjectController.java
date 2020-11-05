@@ -6,6 +6,9 @@ import com.pf.entities.models.Project;
 import com.pf.services.interfaces.ProjectService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,12 +42,14 @@ public class ProjectController {
         }.getType()), HttpStatus.OK);
     }
 
-    @GetMapping("/projects/{userId}")
-    ResponseEntity<?> GetAvailableProjects(@PathVariable Long userId) {
-        List<Project> projects = projectService.GetAllAvailableProjects(userId);
+    @GetMapping()
+    ResponseEntity<?> GetAvailableProjects(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size) {
+        Pageable paging = PageRequest.of(page, size);
 
-        return new ResponseEntity<>((List<ReadProject>) modelMapper.map(projects, new TypeToken<List<ReadProject>>() {
-        }.getType()), HttpStatus.OK);
+        Page<Project> projectsPage = projectService.GetAllAvailableProjects(true, paging);
+        Page<ReadProject> readProjects = projectsPage.map(m -> modelMapper.map(m, ReadProject.class));
+
+        return new ResponseEntity<>(readProjects, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
