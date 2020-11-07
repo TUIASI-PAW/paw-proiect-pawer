@@ -19,8 +19,8 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<Project> GetMyProjects(long userId) {
-        return null;
+    public Page<Project> GetMyProjects(long userId,Pageable paging) {
+        return projectRepository.findByOwnerIdOrderById(userId,paging);
     }
 
     @Override

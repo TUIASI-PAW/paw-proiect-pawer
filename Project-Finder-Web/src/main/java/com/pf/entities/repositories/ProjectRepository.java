@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProjectRepository extends PagingAndSortingRepository<Project, Long> {
     Page<Project> findByIsAvailableOrderById(boolean isAvailable, Pageable pageable);
+
+    Page<Project> findByOwnerIdOrderById(Long ownerId, Pageable pageable);
 }

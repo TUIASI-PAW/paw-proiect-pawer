@@ -35,15 +35,18 @@ public class ProjectController {
     }
 
     @GetMapping("/myprojects/{userId}")
-    ResponseEntity<?> GetMyProjects(@PathVariable Long userId) {
-        List<Project> projects = projectService.GetMyProjects(userId);
+    ResponseEntity<?> GetMyProjects(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "12") int size,
+                                    @PathVariable Long userId) {
+        Pageable paging = PageRequest.of(page, size);
 
-        return new ResponseEntity<>((List<ReadProject>) modelMapper.map(projects, new TypeToken<List<ReadProject>>() {
-        }.getType()), HttpStatus.OK);
+        Page<Project> projectsPage = projectService.GetMyProjects(userId,paging);
+        Page<ReadProject> readProjects = projectsPage.map(m -> modelMapper.map(m, ReadProject.class));
+
+        return new ResponseEntity<>(readProjects, HttpStatus.OK);
     }
 
     @GetMapping()
-    ResponseEntity<?> GetAvailableProjects(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size) {
+    ResponseEntity<?> GetAvailableProjects(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "12") int size) {
         Pageable paging = PageRequest.of(page, size);
 
         Page<Project> projectsPage = projectService.GetAllAvailableProjects(true, paging);

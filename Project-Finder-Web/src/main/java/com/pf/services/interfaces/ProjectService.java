@@ -8,7 +8,7 @@ import java.util.*;
 
 
 public interface ProjectService {
-    List<Project> GetMyProjects(long userId);
+    Page<Project> GetMyProjects(long userId,Pageable paging);
 
     Page<Project> GetAllAvailableProjects(boolean isAvailable, Pageable paging);
 
