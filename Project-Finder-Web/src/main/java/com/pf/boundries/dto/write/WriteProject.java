@@ -11,7 +11,7 @@ public class WriteProject {
 
     private String technologies;
 
-    private boolean isAvailable;
+    private Boolean isAvailable;
 
     private List<Long> users_ids = new ArrayList<>();
 

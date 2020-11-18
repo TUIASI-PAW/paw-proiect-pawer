@@ -19,7 +19,7 @@ public class Project {
 
     private String technologies;
 
-    private boolean isAvailable;
+    private Boolean isAvailable;
 
     @Nullable
     @ManyToMany(fetch = FetchType.LAZY)

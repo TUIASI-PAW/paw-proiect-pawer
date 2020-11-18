@@ -1,5 +1,8 @@
+import { WriteDetails } from './../../models/write-models/write-details';
+import { WriteProject } from './../../models/write-models/write-project';
+import { AddModalComponent } from './../../shared/add-modal/add-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Page } from './../../models/page';
-import { ReadUser } from './../../models/read-models/read-users';
 import { HttpService } from './../../services/http-service/http.service';
 import { ReadProject } from './../../models/read-models/read-project';
 import { Component, OnDestroy, OnInit } from '@angular/core';
@@ -9,18 +12,20 @@ import { TokenStorageService } from 'src/app/services/token-storage-service/toke
 @Component({
   selector: 'app-my-projects',
   templateUrl: './my-projects.component.html',
-  styleUrls: ['./my-projects.component.scss']
+  styleUrls: ['./my-projects.component.scss'],
 })
-export class MyProjectsComponent implements OnInit,OnDestroy {
-
+export class MyProjectsComponent implements OnInit, OnDestroy {
   projects: ReadProject[];
-  user: ReadUser;
   currentPage: Page;
   pageSize = 12;
   noRows = 3;
   subscription: Subscription;
 
-  constructor(private httpService: HttpService, private tokenStorageService: TokenStorageService) {}
+  constructor(
+    private httpService: HttpService,
+    private tokenStorageService: TokenStorageService,
+    private modalService: NgbModal
+  ) {}
 
   ngOnInit(): void {
     this.getPage(0, this.pageSize);
@@ -32,9 +37,12 @@ export class MyProjectsComponent implements OnInit,OnDestroy {
 
   getPage(pageNumber: number, pageSize: number): void {
     this.closeSubscription();
-
     this.subscription = this.httpService
-      .getAll<any>(`projects/myprojects/${this.tokenStorageService.getUser().id}?page=${pageNumber}&size=${pageSize}`)
+      .getAll<any>(
+        `projects/myprojects/${
+          this.tokenStorageService.getUser().id
+        }?page=${pageNumber}&size=${pageSize}`
+      )
       .subscribe((data) => {
         this.projects = data['content'];
         this.currentPage = {
@@ -62,4 +70,31 @@ export class MyProjectsComponent implements OnInit,OnDestroy {
     }
   }
 
+  createProject(): void {
+    const modalRef = this.modalService.open(AddModalComponent);
+    modalRef.result.then(
+      (result: any) => {
+        const writeProject: WriteProject = {
+          name: result['name'],
+          technologies: result['technologies'],
+          isAvailable: true,
+          users_ids: [this.tokenStorageService.getUser().id],
+          owner_id: this.tokenStorageService.getUser().id,
+        };
+        this.httpService.post('projects', writeProject).subscribe(
+          (idProject: number) => {
+            const writeDetails: WriteDetails = {
+              noMembers: result['noMembers'],
+              description: result['description'],
+              startDate: result['startDate'],
+              project_id: idProject,
+            };
+            this.httpService.post('details', writeDetails).subscribe();
+          },
+          () => {}
+        );
+      },
+      () => {}
+    );
+  }
 }

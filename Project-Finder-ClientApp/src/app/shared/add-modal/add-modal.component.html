@@ -1,0 +1,35 @@
+<div class="add-modal">
+  <div class="modal-header border-0">
+
+  </div>
+  <div class="modal-body border-0 text-center">
+    <input *ngIf="nameErorr.length!==0" type="text" [(ngModel)]="projectName" placeholder='Name' />
+    <input *ngIf="nameErorr.length===0" type="text" [(ngModel)]="projectName" placeholder='Name' class="input-erorr" />
+    <br>
+    <input *ngIf="descriptionErorr.length!==0" type="text" [(ngModel)]="description" placeholder='Description' />
+    <input *ngIf="descriptionErorr.length===0" type="text" [(ngModel)]="description" placeholder='Description'
+      class="input-erorr" />
+    <br>
+    <input *ngIf="technologiesErorr.length!==0" type="text" [(ngModel)]="projectTechnologies"
+      placeholder='Technologies' />
+    <input *ngIf="technologiesErorr.length===0" type="text" [(ngModel)]="projectTechnologies" placeholder='Technologies'
+      class="input-erorr" />
+    <br>
+    <input type="number" [(ngModel)]="noMembers" placeholder='Members' />
+    <br>
+    <input type="date" [(ngModel)]="startDate" />
+  </div>
+  <div class="modal-footer border-0 text-center ">
+    <div class="row text-center">
+      <div class="col ">
+        <div (click)="close()">Create</div>
+        <div *ngIf="error.length> 0">
+          <div class="align-self-center">
+            <span class="modal-erorr">{{error}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

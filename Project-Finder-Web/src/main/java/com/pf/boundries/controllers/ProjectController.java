@@ -29,9 +29,9 @@ public class ProjectController {
 
     @PostMapping
     ResponseEntity<?> CreateProject(@RequestBody WriteProject writeProject) {
-        projectService.Save(modelMapper.map(writeProject, Project.class));
+        Project project =  projectService.Save(modelMapper.map(writeProject, Project.class));
 
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(project.getId(), HttpStatus.CREATED);
     }
 
     @GetMapping("/myprojects/{userId}")

@@ -12,7 +12,7 @@ public interface ProjectService {
 
     Page<Project> GetAllAvailableProjects(boolean isAvailable, Pageable paging);
 
-    void Save(Project project);
+    Project Save(Project project);
 
     void Update(Project project, long id) throws Exception;
 

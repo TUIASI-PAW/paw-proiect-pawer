@@ -1,3 +1,4 @@
+import { AddModalComponent } from './../shared/add-modal/add-modal.component';
 import { BoardModule } from './../board-module/board.module';
 import { FindComponent } from './../board-module/find/find.component';
 import { MyProfileComponent } from './../board-module/my-profile/my-profile.component';
@@ -13,9 +14,12 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 @NgModule({
   declarations: [AppComponent, NavbarComponent, LoginComponent],
   imports: [
+    NgbModule,
     BoardModule,
     FormsModule,
     BrowserModule,
@@ -43,6 +47,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
       multi: true,
     },
   ],
+  entryComponents: [AddModalComponent],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
