@@ -1,6 +1,5 @@
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Component, OnInit } from '@angular/core';
-import { DatePipe, formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-add-modal',
@@ -16,6 +15,7 @@ export class AddModalComponent implements OnInit {
   nameErorr: string;
   technologiesErorr: string;
   descriptionErorr: string;
+  noMembersErrors: string;
   error: string;
 
   constructor(private activeModal: NgbActiveModal) {}
@@ -39,9 +39,15 @@ export class AddModalComponent implements OnInit {
     this.technologiesErorr = '';
     this.descriptionErorr = '';
     this.error = '';
+    this.noMembersErrors = '';
   }
 
   close() {
+    this.error = '';
+    this.nameErorr = '';
+    this.descriptionErorr = '';
+    this.technologiesErorr = '';
+    this.noMembersErrors = '';
     if (
       this.projectName.length > 0 &&
       this.projectTechnologies.length > 0 &&
@@ -66,12 +72,17 @@ export class AddModalComponent implements OnInit {
       if (this.description.length === 0) {
         this.descriptionErorr += 'description';
       }
+      if (this.noMembers === null) {
+        this.noMembersErrors += 'members';
+      }
       this.error +=
         this.nameErorr +
         ' ' +
         this.technologiesErorr +
         ' ' +
         this.descriptionErorr +
+        ' ' +
+        this.noMembersErrors +
         ' ' +
         'should not be blank!';
     }

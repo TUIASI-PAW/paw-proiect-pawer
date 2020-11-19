@@ -9,12 +9,20 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
 import { ProjectComponent } from './project/project.component';
 import { AddModalComponent } from '../shared/add-modal/add-modal.component';
 import { DetailsComponent } from './details/details.component';
-
+import { EditModalComponent } from '../shared/edit-modal/edit-modal.component';
 
 @NgModule({
-  declarations: [MyProjectsComponent, FindComponent, MyProfileComponent, ProjectComponent, AddModalComponent, DetailsComponent],
+  declarations: [
+    MyProjectsComponent,
+    FindComponent,
+    MyProfileComponent,
+    ProjectComponent,
+    AddModalComponent,
+    DetailsComponent,
+    EditModalComponent,
+  ],
   imports: [CommonModule, NgbModule, FormsModule],
   bootstrap: [MyProjectsComponent],
-  entryComponents: [AddModalComponent],
+  entryComponents: [AddModalComponent, EditModalComponent],
 })
 export class BoardModule {}

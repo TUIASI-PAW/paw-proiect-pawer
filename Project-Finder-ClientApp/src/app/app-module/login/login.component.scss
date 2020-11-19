@@ -43,16 +43,16 @@ input {
   font-weight: bold;
 }
 
-.input-error {
-  border: 2px solid $error-color;
-  border-radius: 2px;
-  box-shadow: 0 0 5px 0 $error-color;
-}
-
 .message {
   display: inline-block;
   color: $error-color;
   width: 300px;
   font-weight: 600;
   text-align: left;
+}
+
+.input-error {
+  border: 2px solid $error-color;
+  border-radius: 2px;
+  box-shadow: 0 0 5px 0 $error-color;
 }

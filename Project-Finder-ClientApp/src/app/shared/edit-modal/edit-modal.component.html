@@ -1,0 +1,37 @@
+<div class="simple-modal edit-modal">
+  <div class="modal-header border-0">
+    <div class="col">
+      <div class="float-right">
+        <button class="modal-dismiss-button" (click)="activeModal.dismiss('Cross click')">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="modal-body border-0 text-center">
+    <input *ngIf="titleErorr.length===0" type="text" [(ngModel)]="editedTitle" placeholder='Name' />
+    <input *ngIf="titleErorr.length!==0" type="text" [(ngModel)]="editedTitle" placeholder='Name' class="input-error" />
+    <br>
+    <input *ngIf="descriptionErorr.length===0" type="text" [(ngModel)]="editedDescription" placeholder='Description' />
+    <input *ngIf="descriptionErorr.length!==0" type="text" [(ngModel)]="editedDescription" placeholder='Description'
+      class="input-error" />
+    <br>
+    <input *ngIf="technologiesErorr.length===0" type="text" [(ngModel)]="editedTechnologies"
+      placeholder='Technologies' />
+    <input *ngIf="technologiesErorr.length!==0" type="text" [(ngModel)]="editedTechnologies" placeholder='Technologies'
+      class="input-error" />
+    <br>
+    <input *ngIf="dateError.length===0" type="date" [(ngModel)]="editedDate" required />
+    <input *ngIf="dateError.length!==0" type="date" [(ngModel)]="editedDate" class="input-error" required />
+  </div>
+  <div class="modal-footer border-0 text-center ">
+    <div class="col text-center">
+      <button class="modal-close-button" (click)="close()">Update</button>
+      <div *ngIf="error.length> 0">
+        <div class="align-self-center">
+          <span class="modal-erorr">{{error}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

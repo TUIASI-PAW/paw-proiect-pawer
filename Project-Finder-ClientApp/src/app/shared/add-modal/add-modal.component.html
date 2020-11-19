@@ -1,35 +1,40 @@
-<div class="add-modal">
+<div class="simple-modal add-modal">
   <div class="modal-header border-0">
-
+    <div class="col">
+      <div class="float-right">
+        <button class="modal-dismiss-button" (click)="dismiss()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
   </div>
   <div class="modal-body border-0 text-center">
-    <input *ngIf="nameErorr.length!==0" type="text" [(ngModel)]="projectName" placeholder='Name' />
-    <input *ngIf="nameErorr.length===0" type="text" [(ngModel)]="projectName" placeholder='Name' class="input-erorr" />
+    <input *ngIf="nameErorr.length===0" type="text" [(ngModel)]="projectName" placeholder='Name' />
+    <input *ngIf="nameErorr.length!==0" type="text" [(ngModel)]="projectName" placeholder='Name' class="input-error" />
     <br>
-    <input *ngIf="descriptionErorr.length!==0" type="text" [(ngModel)]="description" placeholder='Description' />
-    <input *ngIf="descriptionErorr.length===0" type="text" [(ngModel)]="description" placeholder='Description'
-      class="input-erorr" />
+    <input *ngIf="descriptionErorr.length!==0" type="text" [(ngModel)]="description" placeholder='Description'
+      class="input-error" />
+    <input *ngIf="descriptionErorr.length===0" type="text" [(ngModel)]="description" placeholder='Description' />
     <br>
-    <input *ngIf="technologiesErorr.length!==0" type="text" [(ngModel)]="projectTechnologies"
+    <input *ngIf="technologiesErorr.length===0" type="text" [(ngModel)]="projectTechnologies"
       placeholder='Technologies' />
-    <input *ngIf="technologiesErorr.length===0" type="text" [(ngModel)]="projectTechnologies" placeholder='Technologies'
-      class="input-erorr" />
+    <input *ngIf="technologiesErorr.length!==0" type="text" [(ngModel)]="projectTechnologies" placeholder='Technologies'
+      class="input-error" />
     <br>
-    <input type="number" [(ngModel)]="noMembers" placeholder='Members' />
+    <input *ngIf="noMembersErrors.length===0" type="number" [(ngModel)]="noMembers" placeholder='Members' />
+    <input *ngIf="noMembersErrors.length!==0" type="number" [(ngModel)]="noMembers" placeholder='Members'
+      class="input-error" />
     <br>
-    <input type="date" [(ngModel)]="startDate" />
+    <input type="date" [(ngModel)]="startDate" required />
   </div>
   <div class="modal-footer border-0 text-center ">
-    <div class="row text-center">
-      <div class="col ">
-        <div (click)="close()">Create</div>
-        <div *ngIf="error.length> 0">
-          <div class="align-self-center">
-            <span class="modal-erorr">{{error}}</span>
-          </div>
+    <div class="col text-center">
+      <button class="modal-close-button" (click)="close()">Create</button>
+      <div *ngIf="error.length> 0">
+        <div class="align-self-center">
+          <span class="modal-erorr">{{error}}</span>
         </div>
       </div>
     </div>
   </div>
-
 </div>

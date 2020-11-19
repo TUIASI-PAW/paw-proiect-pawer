@@ -14,13 +14,13 @@
     <div class='card-footer'>
       <div class="row">
         <div class="col-8">
-          <p>Available team positions: {{details.noMembers}}</p>
+          <p>Available team positions: {{details.noMembers - team.length}}</p>
         </div>
         <div class="col-4">
           <div class="float-right">
             <button>Join</button>
             <i class="fas fa-comments"></i>
-            <i class="fas fa-pen"></i>
+            <i class="fas fa-pen" (click)='editProject()'></i>
             <i class="fas fa-trash"></i>
           </div>
         </div>

@@ -1,9 +1,11 @@
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ReadUser } from './../../models/read-models/read-users';
 import { HttpService } from './../../services/http-service/http.service';
 import { ReadDetails } from './../../models/read-models/read-details';
 import { ReadProject } from './../../models/read-models/read-project';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { EditModalComponent } from 'src/app/shared/edit-modal/edit-modal.component';
 
 @Component({
   selector: 'app-details',
@@ -17,7 +19,8 @@ export class DetailsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private httpService: HttpService
+    private httpService: HttpService,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
@@ -62,10 +65,23 @@ export class DetailsComponent implements OnInit {
         .forEach((user) => (names += user.username + ' '));
       if (names.length > 0) {
         return names;
-      }
-      else {
+      } else {
         return 'No member joined this project yet';
       }
     }
+  }
+
+  editProject() {
+    const modalRef = this.modalService.open(EditModalComponent);
+    modalRef.componentInstance.titleValue = this.project.name;
+    modalRef.componentInstance.technologies = this.project.technologies;
+    modalRef.componentInstance.descriptionValue = this.details.description;
+    modalRef.componentInstance.startDate = this.details.startDate;
+    modalRef.result.then(
+      (result) => {
+        console.log(result);
+      },
+      () => {}
+    );
   }
 }

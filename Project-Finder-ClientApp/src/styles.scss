@@ -36,3 +36,63 @@ a {
   background-color: $card-color;
   border-radius: 10px;
 }
+
+.simple-modal {
+  position: absolute;
+  margin-top: 50%;
+  background-color: $body-color;
+  color: $forms-characters-color;
+  border-radius: 2px;
+}
+
+.modal-body {
+  padding-top: 20px;
+}
+
+.modal-footer {
+  padding-top: 0px;
+}
+
+.modal-body input {
+  display: inline-block;
+  width: 300px;
+  color: white;
+  font-size: 20px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid white;
+  opacity: 0.8;
+  padding-left: 5px;
+  margin-bottom: 15px;
+  height: 40px;
+
+  &:focus {
+    box-shadow: none;
+    outline: none;
+  }
+}
+
+.modal-body input[type="number"] {
+  appearance: textfield;
+}
+
+.modal-dismiss-button {
+  background-color: transparent;
+  color: white;
+  border: none;
+}
+
+.modal-close-button {
+  background-color: $card-color;
+  color: white;
+  font-weight: bold;
+  width: 150px;
+  height: 40px;
+  border: none;
+  outline: none;
+}
+
+.modal-erorr {
+  color: $error-color;
+  font-weight: bold;
+}
