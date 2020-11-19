@@ -15,6 +15,7 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DetailsComponent } from '../board-module/details/details.component';
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent, LoginComponent],
@@ -37,6 +38,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         pathMatch: 'full',
       },
       { path: 'board/find', component: FindComponent, pathMatch: 'full' },
+      { path: 'board/project/:id', component: DetailsComponent, pathMatch: 'full' },
     ]),
     HttpClientModule,
   ],

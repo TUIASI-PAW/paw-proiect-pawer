@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,13 +18,24 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Page<Project> GetMyProjects(long userId,Pageable paging) {
-        return projectRepository.findByOwnerIdOrderById(userId,paging);
+    public Page<Project> GetMyProjects(long userId, Pageable paging) {
+        return projectRepository.findByOwnerIdOrderById(userId, paging);
     }
 
     @Override
     public Page<Project> GetAllAvailableProjects(boolean isAvailable, Pageable paging) {
         return projectRepository.findByIsAvailableOrderById(isAvailable, paging);
+    }
+
+    @Override
+    public Project GetById(Long id) throws Exception {
+        Optional<Project> project = this.projectRepository.findById(id);
+
+        if (project.isPresent()) {
+            return project.get();
+        } else {
+            throw new Exception("Project Not Found");
+        }
     }
 
     @Override

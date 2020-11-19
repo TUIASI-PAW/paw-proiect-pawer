@@ -1,0 +1,43 @@
+p {
+  color: white;
+}
+
+.card-header {
+  font-size: 35px;
+  opacity: 0.8;
+  font-weight: bold;
+}
+
+.card-body {
+  font-size: 30px;
+  opacity: 0.8;
+}
+
+.card-footer {
+  font-size: 25px;
+  opacity: 0.6;
+}
+
+button {
+  color: white;
+  background-color: transparent;
+  border: none;
+  font-weight: bold;
+  opacity: 0.6;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.fas {
+  display: inline-block;
+  margin-left: 10px;
+  color: white;
+  cursor: pointer;
+  opacity: 0.6;
+
+  &:hover {
+    opacity: 1;
+  }
+}

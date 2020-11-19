@@ -12,6 +12,8 @@ public interface ProjectService {
 
     Page<Project> GetAllAvailableProjects(boolean isAvailable, Pageable paging);
 
+    Project GetById(Long id) throws Exception;
+
     Project Save(Project project);
 
     void Update(Project project, long id) throws Exception;

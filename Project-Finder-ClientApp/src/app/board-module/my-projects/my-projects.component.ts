@@ -8,6 +8,7 @@ import { ReadProject } from './../../models/read-models/read-project';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { TokenStorageService } from 'src/app/services/token-storage-service/token-storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-my-projects',
@@ -24,7 +25,8 @@ export class MyProjectsComponent implements OnInit, OnDestroy {
   constructor(
     private httpService: HttpService,
     private tokenStorageService: TokenStorageService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -96,5 +98,9 @@ export class MyProjectsComponent implements OnInit, OnDestroy {
       },
       () => {}
     );
+  }
+
+  redirectToDetailsView(id: number) {
+    this.router.navigate(['/board/project', id]);
   }
 }

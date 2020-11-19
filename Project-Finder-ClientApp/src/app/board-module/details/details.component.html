@@ -1,0 +1,30 @@
+<div class="project-container">
+  <div *ngIf="team && details && project" class="card">
+    <div class='card-header'>
+      <p>Name: <span class="text-capitalize">{{project.name}}</span></p>
+    </div>
+    <div class='card-body'>
+      <p>Description: <span class="text-capitalize">{{details.description}}</span></p>
+      <p>Technologies: <span class="text-capitalize">{{project.technologies}}</span></p>
+      <p>Owner: <span class="text-capitalize">{{getOwnerName()}}</span></p>
+      <p>Team: {{getTeam()}}</p>
+      <p>Start date: {{details.startDate}}</p>
+      <p>Team capacity: {{details.noMembers}}</p>
+    </div>
+    <div class='card-footer'>
+      <div class="row">
+        <div class="col-8">
+          <p>Available team positions: {{details.noMembers}}</p>
+        </div>
+        <div class="col-4">
+          <div class="float-right">
+            <button>Join</button>
+            <i class="fas fa-comments"></i>
+            <i class="fas fa-pen"></i>
+            <i class="fas fa-trash"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

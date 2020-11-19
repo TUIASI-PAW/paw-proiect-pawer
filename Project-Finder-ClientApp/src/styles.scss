@@ -23,3 +23,16 @@ button:focus {
   outline: none;
   box-shadow: none;
 }
+
+.project-container {
+  margin: 2% 10%;
+}
+
+a {
+  cursor: pointer;
+}
+
+.card {
+  background-color: $card-color;
+  border-radius: 10px;
+}

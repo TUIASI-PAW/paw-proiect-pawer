@@ -29,7 +29,7 @@ public class ProjectController {
 
     @PostMapping
     ResponseEntity<?> CreateProject(@RequestBody WriteProject writeProject) {
-        Project project =  projectService.Save(modelMapper.map(writeProject, Project.class));
+        Project project = projectService.Save(modelMapper.map(writeProject, Project.class));
 
         return new ResponseEntity<>(project.getId(), HttpStatus.CREATED);
     }
@@ -39,7 +39,7 @@ public class ProjectController {
                                     @PathVariable Long userId) {
         Pageable paging = PageRequest.of(page, size);
 
-        Page<Project> projectsPage = projectService.GetMyProjects(userId,paging);
+        Page<Project> projectsPage = projectService.GetMyProjects(userId, paging);
         Page<ReadProject> readProjects = projectsPage.map(m -> modelMapper.map(m, ReadProject.class));
 
         return new ResponseEntity<>(readProjects, HttpStatus.OK);
@@ -53,6 +53,17 @@ public class ProjectController {
         Page<ReadProject> readProjects = projectsPage.map(m -> modelMapper.map(m, ReadProject.class));
 
         return new ResponseEntity<>(readProjects, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    ResponseEntity<?> GetById(@PathVariable Long id) {
+        try {
+            Project project = this.projectService.GetById(id);
+
+            return new ResponseEntity<>(this.modelMapper.map(project, ReadProject.class), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
     }
 
     @PutMapping("/{id}")
