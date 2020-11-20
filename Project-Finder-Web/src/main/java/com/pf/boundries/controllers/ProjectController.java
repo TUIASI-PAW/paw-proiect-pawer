@@ -34,6 +34,17 @@ public class ProjectController {
         return new ResponseEntity<>(project.getId(), HttpStatus.CREATED);
     }
 
+    @GetMapping("/filter")
+    ResponseEntity<?> GetFiltredProjects(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "12") int size,
+                                         @RequestParam String technology) {
+        Pageable paging = PageRequest.of(page, size);
+
+        Page<Project> projectsPage = projectService.findByTechnology(technology, paging);
+        Page<ReadProject> readProjects = projectsPage.map(m -> modelMapper.map(m, ReadProject.class));
+
+        return new ResponseEntity<>(readProjects, HttpStatus.OK);
+    }
+
     @GetMapping("/myprojects/{userId}")
     ResponseEntity<?> GetMyProjects(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "12") int size,
                                     @PathVariable Long userId) {

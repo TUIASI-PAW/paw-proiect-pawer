@@ -28,6 +28,17 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    public Page<Project> findByTechnology(String technology, Pageable pageable) {
+        if (technology.contains("plus")) {
+            technology = "c++";
+        }
+        if (technology.contains("sharp")) {
+            technology = "c#";
+        }
+        return projectRepository.findByTechnology(technology, pageable);
+    }
+
+    @Override
     public Project GetById(Long id) throws Exception {
         Optional<Project> project = this.projectRepository.findById(id);
 

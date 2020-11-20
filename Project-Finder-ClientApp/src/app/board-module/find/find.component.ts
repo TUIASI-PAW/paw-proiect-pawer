@@ -28,11 +28,22 @@ export class FindComponent implements OnInit, OnDestroy {
     this.closeSubscription();
   }
 
-  getPage(pageNumber: number, pageSize: number): void {
+  getPage(
+    pageNumber: number,
+    pageSize: number,
+    technology: string = null
+  ): void {
     this.closeSubscription();
 
+    let reqPath: string;
+    if (technology !== null) {
+      reqPath = `projects/filter?page=${pageNumber}&size=${pageSize}&technology=${technology}`;
+    } else {
+      reqPath = `projects?page=${pageNumber}&size=${pageSize}`;
+    }
+
     this.subscription = this.httpService
-      .getAll<any>(`projects?page=${pageNumber}&size=${pageSize}`)
+      .getAll<any>(reqPath)
       .subscribe((data) => {
         this.projects = data['content'];
         this.currentPage = {
@@ -60,7 +71,7 @@ export class FindComponent implements OnInit, OnDestroy {
     }
   }
 
-  getFiltredProjects(value) {
-    console.log(value);
+  getFiltredProjects(filter) {
+    this.getPage(0, this.pageSize, filter);
   }
 }
