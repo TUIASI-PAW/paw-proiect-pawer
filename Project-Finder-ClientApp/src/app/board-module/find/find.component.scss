@@ -1,3 +1,5 @@
+@import "../../shared/variables.scss";
+
 .fas {
   opacity: 0.6;
   margin-right: 10px;
@@ -13,4 +15,52 @@
 
 .projecst-nav {
   margin-right: 20px;
+}
+
+
+input[type='radio'] {
+  display: none;
+
+  &:checked {
+    &+label {
+      &:after {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+  }
+}
+
+label {
+  color: white;
+  font-weight: bold;
+  margin: 0;
+  padding-left: 35px;
+  display: inline-block;
+  position: relative;
+
+  &:before {
+    width: 20px;
+    height: 20px;
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    background: $header-color;
+    border-radius: 4px;
+    margin-top: -10px;
+  }
+
+  &:after {
+    background: darkgrey;
+    left: 0;
+    transition: .3s;
+    transform: scale(2);
+    opacity: 0;
+    width: 20px;
+    height: 20px;
+    content: '';
+    position: absolute;
+    border-radius: 4px;
+  }
 }

@@ -59,4 +59,8 @@ export class FindComponent implements OnInit, OnDestroy {
       this.subscription.unsubscribe();
     }
   }
+
+  getFiltredProjects(value) {
+    console.log(value);
+  }
 }

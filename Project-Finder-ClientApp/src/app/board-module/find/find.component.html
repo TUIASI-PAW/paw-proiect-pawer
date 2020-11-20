@@ -1,6 +1,53 @@
 <div *ngIf="currentPage && projects" class="project-container">
-  
-  <div *ngIf="currentPage.numberOfElements > 0" class="row">
+
+  <div class="row">
+
+    <div class="col ml-5 pr-5">
+      <input class="search" placeholder="Search" />
+    </div>
+
+    <div class="col">
+      <div class="row">
+        <div class="col">
+          <input type="radio" id="C++" name="tech" value="c++" (click)="getFiltredProjects('c++')" />
+          <label for="C++">C++</label>
+        </div>
+        <div class="col">
+          <input type="radio" id="C" name="tech" value="c" (click)="getFiltredProjects('c')" />
+          <label for="C">C</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="row">
+        <div class="col">
+          <input type="radio" id="C#" name="tech" value="c#" (click)="getFiltredProjects('c#')" />
+          <label for="C#">C#</label>
+        </div>
+        <div class="col">
+          <input type="radio" id="Java" name="tech" value="java" (click)="getFiltredProjects('java')" />
+          <label for="Java">Java</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="row">
+        <div class="col">
+          <input type="radio" id="Python" name="tech" value="python" (click)="getFiltredProjects('python')" />
+          <label for="Python">Python</label>
+        </div>
+        <div class="col">
+          <input type="radio" id="Matlab" name="tech" value="matlab" (click)="getFiltredProjects('matlab')" />
+          <label for="Matlab">Matlab</label>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div *ngIf="currentPage.numberOfElements > 0" class="row mt-5">
     <div *ngFor="let project of projects.slice(0, pageSize/noRows); index as i">
       <div class="col ml-5">
         <app-project [project]="project"></app-project>
