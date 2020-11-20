@@ -22,15 +22,15 @@
         </div>
         <div class="col-4">
           <div class="float-right">
-            <button>Join</button>
-            <i class="fas fa-comments"></i>
-            <i class="fas fa-pen" (click)='editProject()'></i>
-            <i class="fas fa-trash"></i>
+            <button *ngIf="!isCurrentUserOwner()">Join</button>
+            <i *ngIf="!isCurrentUserOwner()" class="fas fa-comments"></i>
+            <i *ngIf="isCurrentUserOwner()" class="fas fa-pen" (click)='editProject()'></i>
+            <i *ngIf="isCurrentUserOwner()" class="fas fa-trash"></i>
           </div>
         </div>
       </div>
     </div>
 
   </div>
-  
+
 </div>

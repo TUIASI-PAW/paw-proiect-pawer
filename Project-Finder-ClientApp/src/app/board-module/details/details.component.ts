@@ -1,3 +1,4 @@
+import { TokenStorageService } from './../../services/token-storage-service/token-storage.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ReadUser } from './../../models/read-models/read-users';
 import { HttpService } from './../../services/http-service/http.service';
@@ -20,7 +21,8 @@ export class DetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private httpService: HttpService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private tokenStorageService: TokenStorageService
   ) {}
 
   ngOnInit(): void {
@@ -106,5 +108,9 @@ export class DetailsComponent implements OnInit {
       },
       () => {}
     );
+  }
+
+  isCurrentUserOwner() {
+    return this.tokenStorageService.getUser().id === this.project.owner_id;
   }
 }

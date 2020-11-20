@@ -4,6 +4,7 @@ import { HttpService } from './../../services/http-service/http.service';
 import { ReadProject } from './../../models/read-models/read-project';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-find',
@@ -18,7 +19,7 @@ export class FindComponent implements OnInit, OnDestroy {
   noRows = 3;
   subscription: Subscription;
 
-  constructor(private httpService: HttpService) {}
+  constructor(private httpService: HttpService, private router: Router) {}
 
   ngOnInit(): void {
     this.getPage(0, this.pageSize);
@@ -73,5 +74,9 @@ export class FindComponent implements OnInit, OnDestroy {
 
   getFiltredProjects(filter) {
     this.getPage(0, this.pageSize, filter);
+  }
+
+  redirectToDetailsView(id: number) {
+    this.router.navigate(['/board/project', id]);
   }
 }
