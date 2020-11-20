@@ -39,7 +39,7 @@ public class DetailsController {
         }
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     ResponseEntity<?> GetDetailsByProjectId(@PathVariable Long id, @RequestBody WriteDetails writeDetails) {
         try {
             detailsService.Update(modelMapper.map(writeDetails, Details.class), id);

@@ -92,6 +92,15 @@ export class MyProjectsComponent implements OnInit, OnDestroy {
               project_id: idProject,
             };
             this.httpService.post('details', writeDetails).subscribe();
+            const readProject: ReadProject = {
+              id: idProject,
+              name: result['name'],
+              technologies: result['technologies'],
+              isAvailable: true,
+              users_ids: [this.tokenStorageService.getUser().id],
+              owner_id: this.tokenStorageService.getUser().id,
+            };
+            this.projects.push(readProject);
           },
           () => {}
         );

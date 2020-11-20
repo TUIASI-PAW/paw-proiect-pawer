@@ -45,10 +45,19 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public void Update(Project project, long id) throws Exception {
-        Optional<Project> databaseProject = projectRepository.findById(id);
+        Project databaseProject = projectRepository.findById(id).orElse(null);
 
-        if (databaseProject.isPresent()) {
-            projectRepository.save(project);
+        if (databaseProject != null) {
+            if (project.getName() != null) {
+                databaseProject.setName(project.getName());
+            }
+            if (project.getTechnologies() != null) {
+                databaseProject.setTechnologies(project.getTechnologies());
+            }
+            if (project.getIsAvailable() != null) {
+                databaseProject.setIsAvailable(project.getIsAvailable());
+            }
+            projectRepository.save(databaseProject);
         } else {
             throw new Exception("Project to UPDATE Not Found");
         }

@@ -66,7 +66,7 @@ public class ProjectController {
         }
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     ResponseEntity<?> UpdateProject(@PathVariable Long id, @RequestBody WriteProject writeProject) {
         try {
             projectService.Update(modelMapper.map(writeProject, Project.class), id);

@@ -3,6 +3,6 @@ export interface ReadProject {
   name: string;
   technologies: string;
   isAvailable: boolean;
-  users_ids: [];
+  users_ids: number[];
   owner_id: number;
 }

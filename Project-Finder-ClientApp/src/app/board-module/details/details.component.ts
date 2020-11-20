@@ -79,7 +79,30 @@ export class DetailsComponent implements OnInit {
     modalRef.componentInstance.startDate = this.details.startDate;
     modalRef.result.then(
       (result) => {
-        console.log(result);
+        this.httpService
+          .patch(`projects/${this.project.id}`, {
+            name: result['name'],
+            technologies: result['technologies'],
+          })
+          .subscribe(
+            () => {
+              this.project.name = result['name'];
+              this.project.technologies = result['technologies'];
+            },
+            () => {}
+          );
+        this.httpService
+          .patch(`details/${this.details.id}`, {
+            description: result['description'],
+            startDate: result['startDate'],
+          })
+          .subscribe(
+            () => {
+              this.details.description = result['description'];
+              this.details.startDate = result['startDate'];
+            },
+            () => {}
+          );
       },
       () => {}
     );

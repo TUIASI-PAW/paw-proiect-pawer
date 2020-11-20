@@ -43,6 +43,17 @@ export class HttpService {
     });
   }
 
+  patch<T>(endpoint: string, item: T): Observable<T> {
+    const header = new HttpHeaders().set(
+      'Content-Type',
+      'application/json; charset=utf-8'
+    );
+    const body = JSON.stringify(item);
+    return this.httpClient.patch<T>(`${this.url}/${endpoint}`, body, {
+      headers: header,
+    });
+  }
+
   deleteById<T>(endpoint: string, id: number): Observable<object> {
     return this.httpClient.delete(`${this.url}/${endpoint}/${id}`);
   }

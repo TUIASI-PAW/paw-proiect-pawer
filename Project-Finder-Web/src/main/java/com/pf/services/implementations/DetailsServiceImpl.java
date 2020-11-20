@@ -22,12 +22,18 @@ public class DetailsServiceImpl implements DetailsService {
 
     @Override
     public void Update(Details details, long id) throws Exception {
-        Optional<Details> databaseDetail = detailsRepository.findById(id);
+        Details databaseDetail = detailsRepository.findById(id).orElse(null);
 
-        if (databaseDetail.isPresent()) {
-            detailsRepository.save(details);
+        if (databaseDetail != null) {
+            if (details.getDescription() != null) {
+                databaseDetail.setDescription(details.getDescription());
+            }
+            if (details.getStartDate() != null) {
+                databaseDetail.setStartDate(details.getStartDate());
+            }
+            detailsRepository.save(databaseDetail);
         } else {
-            throw new Exception("Detail to UPDATE Not Found");
+            throw new Exception("Details to UPDATE Not Found");
         }
     }
 
