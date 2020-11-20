@@ -1,4 +1,5 @@
 <div class="simple-modal add-modal">
+
   <div class="modal-header border-0">
     <div class="col">
       <div class="float-right">
@@ -8,6 +9,7 @@
       </div>
     </div>
   </div>
+
   <div class="modal-body border-0 text-center">
     <input *ngIf="nameErorr.length===0" type="text" [(ngModel)]="projectName" placeholder='Name' />
     <input *ngIf="nameErorr.length!==0" type="text" [(ngModel)]="projectName" placeholder='Name' class="input-error" />
@@ -27,6 +29,7 @@
     <br>
     <input type="date" [(ngModel)]="startDate" required />
   </div>
+
   <div class="modal-footer border-0 text-center ">
     <div class="col text-center">
       <button class="modal-close-button" (click)="close()">Create</button>
@@ -37,4 +40,5 @@
       </div>
     </div>
   </div>
+  
 </div>

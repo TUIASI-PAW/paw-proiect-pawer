@@ -1,4 +1,5 @@
 <div class="simple-modal edit-modal">
+
   <div class="modal-header border-0">
     <div class="col">
       <div class="float-right">
@@ -8,6 +9,7 @@
       </div>
     </div>
   </div>
+
   <div class="modal-body border-0 text-center">
     <input *ngIf="titleErorr.length===0" type="text" [(ngModel)]="editedTitle" placeholder='Name' />
     <input *ngIf="titleErorr.length!==0" type="text" [(ngModel)]="editedTitle" placeholder='Name' class="input-error" />
@@ -24,6 +26,7 @@
     <input *ngIf="dateError.length===0" type="date" [(ngModel)]="editedDate" required />
     <input *ngIf="dateError.length!==0" type="date" [(ngModel)]="editedDate" class="input-error" required />
   </div>
+
   <div class="modal-footer border-0 text-center ">
     <div class="col text-center">
       <button class="modal-close-button" (click)="close()">Update</button>
@@ -34,4 +37,5 @@
       </div>
     </div>
   </div>
+  
 </div>

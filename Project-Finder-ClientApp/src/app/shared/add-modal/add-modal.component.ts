@@ -30,7 +30,6 @@ export class AddModalComponent implements OnInit {
     const mm = today.getMonth() + 1;
     const yyyy = today.getFullYear();
     this.startDate = yyyy + '-' + mm + '-' + dd;
-
     this.noMembers = 2;
     this.description = '';
     this.projectName = '';

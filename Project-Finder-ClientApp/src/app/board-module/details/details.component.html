@@ -1,8 +1,11 @@
 <div class="project-container">
+
   <div *ngIf="team && details && project" class="card">
+
     <div class='card-header'>
       <p>Name: <span class="text-capitalize">{{project.name}}</span></p>
     </div>
+
     <div class='card-body'>
       <p>Description: <span class="text-capitalize">{{details.description}}</span></p>
       <p>Technologies: <span class="text-capitalize">{{project.technologies}}</span></p>
@@ -11,6 +14,7 @@
       <p>Start date: {{details.startDate}}</p>
       <p>Team capacity: {{details.noMembers}}</p>
     </div>
+
     <div class='card-footer'>
       <div class="row">
         <div class="col-8">
@@ -26,5 +30,7 @@
         </div>
       </div>
     </div>
+
   </div>
+  
 </div>

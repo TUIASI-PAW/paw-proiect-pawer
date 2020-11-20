@@ -1,5 +1,5 @@
 <div *ngIf="currentPage && projects" class="project-container">
-
+  
   <div *ngIf="currentPage.numberOfElements > 0" class="row">
     <div *ngFor="let project of projects.slice(0, pageSize/noRows); index as i">
       <div class="col ml-5">

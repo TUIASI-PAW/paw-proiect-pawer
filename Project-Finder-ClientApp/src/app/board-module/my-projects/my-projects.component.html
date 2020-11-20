@@ -11,7 +11,7 @@
       </div>
     </div>
   </div>
-
+  
   <div *ngIf="currentPage.numberOfElements > 0" class="row mt-5">
     <div *ngFor="let project of projects.slice(0, pageSize/noRows); index as i">
       <div class="col ml-5">
@@ -23,7 +23,7 @@
   <div *ngIf="currentPage.numberOfElements >= pageSize/noRows" class="row mt-5">
     <div *ngFor="let project of projects.slice(pageSize/noRows, 2*pageSize/noRows); index as i">
       <div class="col ml-5">
-        <app-project [project]="project" (click)="redirectToDetailsView(project.id)" ></app-project>
+        <app-project [project]="project" (click)="redirectToDetailsView(project.id)"></app-project>
       </div>
     </div>
   </div>
