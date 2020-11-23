@@ -5,15 +5,12 @@ import com.pf.boundries.dto.write.WriteProject;
 import com.pf.entities.models.Project;
 import com.pf.services.interfaces.ProjectService;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600, allowedHeaders = "*")
 @RestController
@@ -35,11 +32,33 @@ public class ProjectController {
     }
 
     @GetMapping("/filter")
-    ResponseEntity<?> GetFiltredProjects(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "12") int size,
+    ResponseEntity<?> GetFilteredProjects(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "12") int size,
                                          @RequestParam String technology) {
         Pageable paging = PageRequest.of(page, size);
 
-        Page<Project> projectsPage = projectService.findByTechnology(technology, paging);
+        Page<Project> projectsPage = projectService.FindByTechnology(technology, paging);
+        Page<ReadProject> readProjects = projectsPage.map(m -> modelMapper.map(m, ReadProject.class));
+
+        return new ResponseEntity<>(readProjects, HttpStatus.OK);
+    }
+
+    @GetMapping("/search")
+    ResponseEntity<?> GetFilteredProjectsByPattern(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "12") int size,
+                                         @RequestParam String pattern) {
+        Pageable paging = PageRequest.of(page, size);
+
+        Page<Project> projectsPage = projectService.FindByPattern(pattern, paging);
+        Page<ReadProject> readProjects = projectsPage.map(m -> modelMapper.map(m, ReadProject.class));
+
+        return new ResponseEntity<>(readProjects, HttpStatus.OK);
+    }
+
+    @GetMapping("/search/{userId}")
+    ResponseEntity<?> GetMyProjectsFilteredByPattern(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "12") int size,
+                                                   @RequestParam String pattern, @PathVariable Long userId) {
+        Pageable paging = PageRequest.of(page, size);
+
+        Page<Project> projectsPage = projectService.FindMyProjectsByPattern(userId,pattern, paging);
         Page<ReadProject> readProjects = projectsPage.map(m -> modelMapper.map(m, ReadProject.class));
 
         return new ResponseEntity<>(readProjects, HttpStatus.OK);

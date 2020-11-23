@@ -11,7 +11,11 @@ public interface ProjectService {
 
     Page<Project> GetAllAvailableProjects(boolean isAvailable, Pageable paging);
 
-    Page<Project> findByTechnology(@Param("technology")String technology, Pageable pageable);
+    Page<Project> FindByTechnology(String technology, Pageable pageable);
+
+    Page<Project> FindByPattern(String technology, Pageable pageable);
+
+    Page<Project> FindMyProjectsByPattern(Long userId, String technology, Pageable pageable);
 
     Project GetById(Long id) throws Exception;
 

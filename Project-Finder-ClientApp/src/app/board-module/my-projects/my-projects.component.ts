@@ -21,6 +21,7 @@ export class MyProjectsComponent implements OnInit, OnDestroy {
   pageSize = 12;
   noRows = 3;
   subscription: Subscription;
+  searchPattern = '';
 
   constructor(
     private httpService: HttpService,
@@ -37,14 +38,28 @@ export class MyProjectsComponent implements OnInit, OnDestroy {
     this.closeSubscription();
   }
 
-  getPage(pageNumber: number, pageSize: number): void {
+  getPage(
+    pageNumber: number,
+    pageSize: number,
+    path: string = null,
+    key: string = null,
+    pattern: string = null
+  ): void {
     this.closeSubscription();
+
+    let reqPath: string;
+    if (path != null && pattern != null && key != null) {
+      reqPath = `projects/${path}/${
+        this.tokenStorageService.getUser().id
+      }?page=${pageNumber}&size=${pageSize}&${key}=${pattern}`;
+    } else {
+      reqPath = `projects/myprojects/${
+        this.tokenStorageService.getUser().id
+      }?page=${pageNumber}&size=${pageSize}`;
+    }
+
     this.subscription = this.httpService
-      .getAll<any>(
-        `projects/myprojects/${
-          this.tokenStorageService.getUser().id
-        }?page=${pageNumber}&size=${pageSize}`
-      )
+      .getAll<any>(reqPath)
       .subscribe((data) => {
         this.projects = data['content'];
         this.currentPage = {
@@ -111,5 +126,19 @@ export class MyProjectsComponent implements OnInit, OnDestroy {
 
   redirectToDetailsView(id: number) {
     this.router.navigate(['/board/project', id]);
+  }
+
+  searchForPattern() {
+    const radioButtons = document.querySelectorAll('input[type=radio]');
+
+    for (var i = 0; i < radioButtons.length; ++i) {
+      radioButtons[i]['checked'] = false;
+    }
+
+    var pattern = this.searchPattern.toLowerCase();
+    pattern = pattern.replace('c++', 'cplusplus');
+    pattern = pattern.replace('c#', 'csharp');
+
+    this.getPage(0, this.pageSize, 'search', 'pattern', pattern);
   }
 }

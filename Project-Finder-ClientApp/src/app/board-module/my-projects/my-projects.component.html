@@ -2,7 +2,7 @@
 
   <div class="row">
     <div class="col ml-5">
-      <input class="search" placeholder="Search" />
+      <input [(ngModel)] = "searchPattern" class="search" placeholder="Search" (keyup.enter)="searchForPattern()"/>
     </div>
 
     <div class="col mr-5">

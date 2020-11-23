@@ -18,6 +18,8 @@ export class FindComponent implements OnInit, OnDestroy {
   pageSize = 12;
   noRows = 3;
   subscription: Subscription;
+  searchPattern = '';
+  isSearchedOn = false;
 
   constructor(private httpService: HttpService, private router: Router) {}
 
@@ -32,13 +34,15 @@ export class FindComponent implements OnInit, OnDestroy {
   getPage(
     pageNumber: number,
     pageSize: number,
-    technology: string = null
+    path: string = null,
+    key: string = null,
+    pattern: string = null
   ): void {
     this.closeSubscription();
 
     let reqPath: string;
-    if (technology !== null) {
-      reqPath = `projects/filter?page=${pageNumber}&size=${pageSize}&technology=${technology}`;
+    if (path != null && pattern != null && key != null) {
+      reqPath = `projects/${path}?page=${pageNumber}&size=${pageSize}&${key}=${pattern}`;
     } else {
       reqPath = `projects?page=${pageNumber}&size=${pageSize}`;
     }
@@ -73,10 +77,24 @@ export class FindComponent implements OnInit, OnDestroy {
   }
 
   getFiltredProjects(filter) {
-    this.getPage(0, this.pageSize, filter);
+    this.getPage(0, this.pageSize, 'filter', 'technology', filter);
   }
 
   redirectToDetailsView(id: number) {
     this.router.navigate(['/board/project', id]);
+  }
+
+  searchForPattern() {
+    const radioButtons = document.querySelectorAll('input[type=radio]');
+
+    for (var i = 0; i < radioButtons.length; ++i) {
+      radioButtons[i]['checked'] = false;
+    }
+
+    var pattern = this.searchPattern.toLowerCase();
+    pattern = pattern.replace('c++', 'cplusplus');
+    pattern = pattern.replace('c#', 'csharp');
+
+    this.getPage(0, this.pageSize, 'search', 'pattern', pattern);
   }
 }

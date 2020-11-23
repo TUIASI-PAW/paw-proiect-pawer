@@ -15,5 +15,11 @@ public interface ProjectRepository extends PagingAndSortingRepository<Project, L
     Page<Project> findByOwnerIdOrderById(Long ownerId, Pageable pageable);
 
     @Query("select p from Project  p where p.technologies like %:technology%")
-    Page<Project> findByTechnology(@Param("technology")String technology, Pageable pageable);
+    Page<Project> findByTechnology(@Param("technology") String technology, Pageable pageable);
+
+    @Query("select p from Project  p where p.technologies like %:pattern% or p.name like %:pattern%")
+    Page<Project> findByPattern(@Param("pattern") String pattern, Pageable pageable);
+
+    @Query("select p from Project  p where (p.technologies like %:pattern% or p.name like %:pattern%) and p.owner.id = :ownerId")
+    Page<Project> findMyProjectsByPattern(@Param("ownerId") Long ownerId, @Param("pattern") String pattern, Pageable pageable);
 }

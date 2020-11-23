@@ -28,7 +28,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Page<Project> findByTechnology(String technology, Pageable pageable) {
+    public Page<Project> FindByTechnology(String technology, Pageable pageable) {
         if (technology.contains("plus")) {
             technology = "c++";
         }
@@ -36,6 +36,22 @@ public class ProjectServiceImpl implements ProjectService {
             technology = "c#";
         }
         return projectRepository.findByTechnology(technology, pageable);
+    }
+
+    @Override
+    public Page<Project> FindByPattern(String pattern, Pageable pageable) {
+        pattern = pattern.replace("plus", "+");
+        pattern = pattern.replace("sharp", "#");
+
+        return projectRepository.findByPattern(pattern, pageable);
+    }
+
+    @Override
+    public Page<Project> FindMyProjectsByPattern(Long userId, String pattern, Pageable pageable) {
+        pattern = pattern.replace("plus", "+");
+        pattern = pattern.replace("sharp", "#");
+
+        return projectRepository.findMyProjectsByPattern(userId, pattern, pageable);
     }
 
     @Override
