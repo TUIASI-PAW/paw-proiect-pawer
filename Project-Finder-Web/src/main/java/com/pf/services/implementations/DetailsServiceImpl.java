@@ -41,4 +41,10 @@ public class DetailsServiceImpl implements DetailsService {
     public void Save(Details details) {
         detailsRepository.save(details);
     }
+
+
+    @Override
+    public void Delete(long id) {
+        detailsRepository.deleteById(id);
+    }
 }

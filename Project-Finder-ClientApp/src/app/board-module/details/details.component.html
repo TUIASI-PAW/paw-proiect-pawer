@@ -25,7 +25,7 @@
             <button *ngIf="!isCurrentUserOwner()">Join</button>
             <i *ngIf="!isCurrentUserOwner()" class="fas fa-comments"></i>
             <i *ngIf="isCurrentUserOwner()" class="fas fa-pen" (click)='editProject()'></i>
-            <i *ngIf="isCurrentUserOwner()" class="fas fa-trash"></i>
+            <i *ngIf="isCurrentUserOwner()" class="fas fa-trash" (click)='deleteProject()'></i>
           </div>
         </div>
       </div>

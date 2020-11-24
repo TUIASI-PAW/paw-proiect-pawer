@@ -8,4 +8,6 @@ public interface DetailsService {
     void Update(Details details, long id) throws Exception;
 
     void Save(Details details);
+
+    void Delete(long id);
 }

@@ -49,4 +49,16 @@ public class DetailsController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NO_CONTENT);
         }
     }
+
+
+    @DeleteMapping("/{id}")
+    ResponseEntity<?> DeleteById(@PathVariable Long id) {
+        try {
+            detailsService.Delete(id);
+
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
 }

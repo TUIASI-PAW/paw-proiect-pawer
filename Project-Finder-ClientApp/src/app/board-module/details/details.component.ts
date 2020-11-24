@@ -5,7 +5,7 @@ import { HttpService } from './../../services/http-service/http.service';
 import { ReadDetails } from './../../models/read-models/read-details';
 import { ReadProject } from './../../models/read-models/read-project';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EditModalComponent } from 'src/app/shared/edit-modal/edit-modal.component';
 
 @Component({
@@ -22,7 +22,8 @@ export class DetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private httpService: HttpService,
     private modalService: NgbModal,
-    private tokenStorageService: TokenStorageService
+    private tokenStorageService: TokenStorageService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -112,5 +113,20 @@ export class DetailsComponent implements OnInit {
 
   isCurrentUserOwner() {
     return this.tokenStorageService.getUser().id === this.project.owner_id;
+  }
+
+  deleteProject() {
+    this.httpService.deleteById('details', this.details.id).subscribe(
+      () => {
+        this.httpService.deleteById('projects', this.project.id).subscribe(
+          () => {
+            console.log('Proiectul a fost sters');
+            this.router.navigate(['/board/myProjects'])
+          },
+          () => {}
+        );
+      },
+      () => {}
+    );
   }
 }
