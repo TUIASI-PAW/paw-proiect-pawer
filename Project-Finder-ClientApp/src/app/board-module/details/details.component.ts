@@ -1,3 +1,4 @@
+import { DeleteModalComponent } from './../../shared/delete-modal/delete-modal.component';
 import { TokenStorageService } from './../../services/token-storage-service/token-storage.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ReadUser } from './../../models/read-models/read-users';
@@ -116,12 +117,19 @@ export class DetailsComponent implements OnInit {
   }
 
   deleteProject() {
-    this.httpService.deleteById('details', this.details.id).subscribe(
+    const modalDel = this.modalService.open(DeleteModalComponent);
+    modalDel.componentInstance.lbl = this.project.name;
+    modalDel.result.then(
       () => {
-        this.httpService.deleteById('projects', this.project.id).subscribe(
+        this.httpService.deleteById('details', this.details.id).subscribe(
           () => {
-            console.log('Proiectul a fost sters');
-            this.router.navigate(['/board/myProjects'])
+            this.httpService.deleteById('projects', this.project.id).subscribe(
+              () => {
+                console.log('Proiectul a fost sters');
+                this.router.navigate(['/board/myProjects']);
+              },
+              () => {}
+            );
           },
           () => {}
         );

@@ -10,6 +10,7 @@ import { ProjectComponent } from './project/project.component';
 import { AddModalComponent } from '../shared/add-modal/add-modal.component';
 import { DetailsComponent } from './details/details.component';
 import { EditModalComponent } from '../shared/edit-modal/edit-modal.component';
+import { DeleteModalComponent } from '../shared/delete-modal/delete-modal.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { EditModalComponent } from '../shared/edit-modal/edit-modal.component';
     AddModalComponent,
     DetailsComponent,
     EditModalComponent,
+    DeleteModalComponent,
   ],
   imports: [CommonModule, NgbModule, FormsModule],
   bootstrap: [MyProjectsComponent],

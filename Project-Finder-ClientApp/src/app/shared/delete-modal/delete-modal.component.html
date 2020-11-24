@@ -1,0 +1,31 @@
+<div class="simple-modal add-modal">
+
+    <div class="modal-header border-0">
+      <div class="col">
+        <div class="float-right">
+          <button class="modal-dismiss-button" (click)="dismiss()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  
+    <div class="modal-body border-0 text-center">
+    <label >{{labelString}}</label>
+      <input *ngIf="error.length===0" type="text" [(ngModel)]="projectName" placeholder='Name' />
+      <input *ngIf="error.length!==0" type="text" [(ngModel)]="projectName" placeholder='Name' class="input-error" />
+    </div>
+  
+    <div class="modal-footer border-0 text-center ">
+      <div class="col text-center">
+        <button class="modal-close-button" (click)="close()">Delete</button>
+        <div *ngIf="error.length> 0">
+          <div class="align-self-center">
+            <span class="modal-erorr">{{error}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  
