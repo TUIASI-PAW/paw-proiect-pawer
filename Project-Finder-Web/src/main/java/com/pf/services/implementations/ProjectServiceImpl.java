@@ -1,6 +1,7 @@
 package com.pf.services.implementations;
 
 import com.pf.entities.models.Project;
+import com.pf.entities.models.User;
 import com.pf.entities.repositories.ProjectRepository;
 import com.pf.services.interfaces.ProjectService;
 import org.springframework.data.domain.Page;
@@ -8,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
@@ -83,6 +85,9 @@ public class ProjectServiceImpl implements ProjectService {
             }
             if (project.getIsAvailable() != null) {
                 databaseProject.setIsAvailable(project.getIsAvailable());
+            }
+            if (project.getTeam() != null) {
+                databaseProject.setTeam(project.getTeam().stream().map(User::getId).collect(Collectors.toList()));
             }
             projectRepository.save(databaseProject);
         } else {
