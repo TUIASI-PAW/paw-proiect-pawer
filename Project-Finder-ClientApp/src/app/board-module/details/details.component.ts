@@ -1,3 +1,5 @@
+import { ReadRequests } from './../../models/read-models/read-requests';
+import { WriteRequests } from './../../models/write-models/write-requests';
 import { DeleteModalComponent } from './../../shared/delete-modal/delete-modal.component';
 import { TokenStorageService } from './../../services/token-storage-service/token-storage.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -18,6 +20,7 @@ export class DetailsComponent implements OnInit {
   project: ReadProject;
   details: ReadDetails;
   team: ReadUser[] = [];
+  isJoined: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -28,7 +31,9 @@ export class DetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isJoined = false;
     const projectId = this.route.snapshot.params['id'];
+    this.validIsJoined(projectId);
     this.httpService.getById('projects', projectId).subscribe(
       (data: ReadProject) => {
         this.project = data;
@@ -136,5 +141,39 @@ export class DetailsComponent implements OnInit {
       },
       () => {}
     );
+  }
+
+  validIsJoined(projectId) {
+    this.httpService.getById('requests', projectId).subscribe(
+      (data: ReadRequests[]) => {
+        for (const entry of data) {
+          if (entry['userId'] === this.tokenStorageService.getUser().id) {
+            this.isJoined = true;
+          }
+        }
+      },
+      () => {}
+    );
+  }
+
+  createRequest() {
+    if (this.isJoined === false) {
+      const writeRequest: WriteRequests = {
+        projectId: this.project.id,
+        userId: this.tokenStorageService.getUser().id,
+      };
+      this.httpService.post('requests', writeRequest).subscribe(
+        () => {
+          this.router.navigate(['/board/find']);
+        },
+        () => {}
+      );
+    } else {
+      console.log('already joined');
+    }
+  }
+
+  showJoinButton() {
+    return this.isJoined;
   }
 }
