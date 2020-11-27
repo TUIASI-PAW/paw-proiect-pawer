@@ -1,0 +1,35 @@
+<div class="simple-modal add-modal">
+
+  <div class="modal-header border-0">
+    <div class="col">
+      <div class="float-right">
+        <button class="modal-dismiss-button" (click)="dismiss()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-body border-0 text-center">
+
+    <div *ngFor="let user of team">
+      <label>{{user}}</label>
+      &nbsp;&nbsp;
+      <i class="fas fa-check" (click)="addAcceptUser(user)"></i>
+      &nbsp;&nbsp;
+      <i class="fas fa-times" (click)="addRemoveUser(user)"></i>
+    </div>
+  </div>
+
+  <div class="modal-footer border-0 text-center ">
+    <div class="col text-center">
+      <button class="modal-close-button" (click)="close()">Close</button>
+      <div *ngIf="message.length> 0">
+        <div class="align-self-center">
+          <span class="modal-erorr">{{message}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

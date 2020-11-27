@@ -11,6 +11,7 @@ import { AddModalComponent } from '../shared/add-modal/add-modal.component';
 import { DetailsComponent } from './details/details.component';
 import { EditModalComponent } from '../shared/edit-modal/edit-modal.component';
 import { DeleteModalComponent } from '../shared/delete-modal/delete-modal.component';
+import { TeamModalComponent } from '../shared/team-modal/team-modal.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { DeleteModalComponent } from '../shared/delete-modal/delete-modal.compon
     DetailsComponent,
     EditModalComponent,
     DeleteModalComponent,
+    TeamModalComponent,
   ],
   imports: [CommonModule, NgbModule, FormsModule],
   bootstrap: [MyProjectsComponent],

@@ -1,3 +1,4 @@
+import { TeamModalComponent } from './../../shared/team-modal/team-modal.component';
 import { ReadRequests } from './../../models/read-models/read-requests';
 import { WriteRequests } from './../../models/write-models/write-requests';
 import { DeleteModalComponent } from './../../shared/delete-modal/delete-modal.component';
@@ -21,6 +22,10 @@ export class DetailsComponent implements OnInit {
   details: ReadDetails;
   team: ReadUser[] = [];
   isJoined: boolean;
+  willing: number[];
+  willingNames: string[] = [];
+  userWilling: ReadUser[] = [];
+  requestWilling: ReadRequests[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -128,6 +133,19 @@ export class DetailsComponent implements OnInit {
       () => {
         this.httpService.deleteById('details', this.details.id).subscribe(
           () => {
+            this.httpService.getById('requests', this.project.id).subscribe(
+              (data: ReadRequests[]) => {
+                if (data) {
+                  for (const rq of data) {
+                    this.httpService.deleteById('requests', rq['id']).subscribe(
+                      () => {},
+                      () => {}
+                    );
+                  }
+                }
+              },
+              () => {}
+            );
             this.httpService.deleteById('projects', this.project.id).subscribe(
               () => {
                 console.log('Proiectul a fost sters');
@@ -175,5 +193,76 @@ export class DetailsComponent implements OnInit {
 
   showJoinButton() {
     return this.isJoined;
+  }
+
+  showWilling() {
+    this.willingNames = [];
+    this.httpService.getById('requests', this.project.id).subscribe(
+      (data: ReadRequests[]) => {
+        this.requestWilling = data;
+        for (const entry of data) {
+          this.httpService.getById('users', entry['userId']).subscribe(
+            (user: ReadUser) => {
+              this.willingNames.push(user['username']);
+              this.userWilling.push(user);
+            },
+            () => {}
+          );
+        }
+      },
+      () => {}
+    );
+    if (this.willingNames != null) {
+      const modalTeam = this.modalService.open(TeamModalComponent);
+      modalTeam.componentInstance.team = this.willingNames;
+      modalTeam.componentInstance.avaiblePositions =
+        this.details.noMembers - this.team.length;
+      modalTeam.result.then(
+        (data) => {
+          let userId = -1;
+          if (data !== null) {
+            for (const userW of this.userWilling) {
+              userId = -1;
+              for (const accept of data['accept']) {
+                if (accept === userW['username']) {
+                  this.willingNames.filter((m) => m !== accept);
+                  userId = userW['id'];
+                  this.team.push(userW);
+                  this.httpService
+                    .patch(`projects/${this.project.id}`, {
+                      users_ids: [userId],
+                    })
+                    .subscribe(
+                      () => {},
+                      () => {}
+                    );
+                }
+              }
+              for (const remove of data['remove']) {
+                if (remove === userW['username']) {
+                  userId = userW['id'];
+                  this.willingNames.filter((m) => m !== remove);
+                }
+              }
+              if (userId !== -1) {
+                for (const rq of this.requestWilling) {
+                  if (rq['userId'] === userId) {
+                    this.httpService.deleteById('requests', rq['id']).subscribe(
+                      () => {},
+                      () => {}
+                    );
+                  }
+                }
+              }
+            }
+          }
+          this.router.navigate(['/board/find']);
+        },
+        () => {
+          this.willingNames = [];
+          this.router.navigate(['/board/find']);
+        }
+      );
+    }
   }
 }
