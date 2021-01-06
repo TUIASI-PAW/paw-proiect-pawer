@@ -1,3 +1,4 @@
+import { ChatComponent } from './../board-module/chat/chat.component';
 import { AddModalComponent } from './../shared/add-modal/add-modal.component';
 import { BoardModule } from './../board-module/board.module';
 import { FindComponent } from './../board-module/find/find.component';
@@ -18,7 +19,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DetailsComponent } from '../board-module/details/details.component';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, LoginComponent],
+  declarations: [AppComponent, NavbarComponent, LoginComponent, ChatComponent],
   imports: [
     NgbModule,
     BoardModule,

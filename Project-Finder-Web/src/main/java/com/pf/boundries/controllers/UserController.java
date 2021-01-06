@@ -93,4 +93,14 @@ public class UserController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping()
+    ResponseEntity<?> GetAllUsers() {
+        try {
+            List<User> users = userService.GetAll();
+            return new ResponseEntity<>(users.stream().parallel().map(user -> modelMapper.map(user, ReadUser.class)),HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
 }

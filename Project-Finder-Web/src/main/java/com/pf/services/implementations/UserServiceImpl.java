@@ -5,6 +5,7 @@ import com.pf.entities.repositories.UserRepository;
 import com.pf.services.interfaces.UserService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -38,6 +39,11 @@ public class UserServiceImpl implements UserService {
         } else {
             throw new Exception("User Not Found");
         }
+    }
+
+    @Override
+    public List<User> GetAll() {
+        return this.userRepository.findAll();
     }
 
 }

@@ -12,6 +12,7 @@ import { DetailsComponent } from './details/details.component';
 import { EditModalComponent } from '../shared/edit-modal/edit-modal.component';
 import { DeleteModalComponent } from '../shared/delete-modal/delete-modal.component';
 import { TeamModalComponent } from '../shared/team-modal/team-modal.component';
+import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
   declarations: [

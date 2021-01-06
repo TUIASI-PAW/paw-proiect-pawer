@@ -1,0 +1,59 @@
+<div *ngIf="!isChatOpened" class="chat" (click)="openChat()">
+  <div class='message-container'>
+    Start a conversation...
+  </div>
+
+  <div class='icon-container'>
+    <i class="fas fa-comment-alt"></i>
+  </div>
+</div>
+
+<div *ngIf="isChatOpened" class="on-chat">
+  <div class="on-chat-header">
+    <div class='message-container'>
+      <select [(ngModel)]="receiver" class="on-chat-select" (change)="getConversation()">
+        <option *ngFor="let user of users" [value]="user.username">{{user.username}}
+        </option>
+      </select>
+    </div>
+    <div class="icon-container">
+      <i class="fas fa-times" (click)="closeChat()"></i>
+    </div>
+  </div>
+  <div class="on-chat-body">
+    <p class="on-chat-body-text">Unseen messages</p>
+    <div class="on-chat-unseen">
+      <p *ngFor="let message of unseenMessages" class="unseen-message" (click) ="openConversation(message.sender)">
+        {{message.text}}
+        <br />
+        {{message.sender}}
+        {{(message.date | date: 'dd/MM/yyyy hh:mm')}}
+        {{message.seen? "seen":"not seen"}}
+      </p>
+    </div>
+    <p class="on-chat-body-text">Conversation</p>
+    <div class="on-chat-conversation" #scrollMe>
+      <div *ngFor="let message of conversation">
+        <div *ngIf="isUserTheSender(message.sender)" class="conversation-message message-left">
+          {{message.text}}
+          <br />
+          You
+          {{(message.date | date: 'dd/MM/yyyy hh:mm')  }}
+          {{message.seen? "seen":"not seen"}}
+        </div>
+        <div *ngIf="isUserTheSender(message.receiver)" class="conversation-message message-right">
+          {{message.text}}
+          <br />
+          {{message.sender}}
+          {{(message.date | date: 'dd/MM/yyyy hh:mm')  }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="on-chat-footer">
+    <div class="on-chat-send-message">
+      <input [(ngModel)]="textToSend" class="on-chat-send-input" placeholder="Send a message" />
+      <i class="fas fa-paper-plane" (click)="sendMessage()"></i>
+    </div>
+  </div>
+</div>

@@ -1,3 +1,4 @@
+import { TokenStorageService } from './../../services/token-storage-service/token-storage.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,4 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
+  constructor(private tokenStorage: TokenStorageService) {
+
+  }
+
+  isUserLoggedIn = () => {
+    return this.tokenStorage.getUser() != null;
+  }
 }

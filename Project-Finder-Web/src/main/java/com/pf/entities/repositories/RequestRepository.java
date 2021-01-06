@@ -1,7 +1,6 @@
 package com.pf.entities.repositories;
 
 
-import com.pf.entities.models.Details;
 import com.pf.entities.models.Request;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

@@ -1,0 +1,166 @@
+@import '../../shared/variables.scss';
+
+.chat {
+  background-color: $header-color;
+  height: 30px;
+  width: 290px;
+  padding-top: 2px;
+}
+
+.message-container {
+  color: white;
+  font-weight: bold;
+  padding-left: 5px;
+  width: 80%;
+  float: left;
+  cursor: pointer;
+}
+
+.chat-container {
+  width: 20%;
+  float: right;
+}
+
+.fas {
+  float: right;
+  color: white;
+  padding-top: 5px;
+  margin-right: 5px;
+  font-size: 15px;
+  opacity: 0.7;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.on-chat {
+  height: 400px;
+  width: 300px;
+  background-color: $header-color;
+  position: absolute;
+  z-index: 100;
+  top: 515px;
+  right: 245px;
+  border: solid 2px;
+}
+
+.on-chat-header {
+  display: block;
+  height: 30px;
+}
+
+.on-chat-select {
+  background-color: $card-color;
+  width: 100%;
+  color: white;
+  border: none;
+  margin-top: 5px;
+  font-weight: bold;
+  border-radius: 3px;
+}
+
+.fa-times {
+  margin-top: 5px;
+  margin-right: 5px;
+}
+
+.on-chat-body {
+  display: block;
+  margin-left: 1%;
+  width: 98%;
+  height: 300px;
+}
+
+.on-chat-unseen {
+  display: inline-block;
+  height: 60px;
+  width: 100%;
+  background-color: $card-color;
+  border-radius: 5px;
+  overflow: auto;
+}
+
+.on-chat-body-text {
+  color: white;
+  padding-top: 10px;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.on-chat-conversation {
+  display: inline-block;
+  height: 180px;
+  width: 100%;
+  background-color: $card-color;
+  border-radius: 5px;
+  overflow: auto;
+}
+
+.on-chat-footer {
+  display: block;
+  margin-left: 1%;
+  width: 98%;
+  margin-top: 35px;
+  height: 30px;
+}
+
+.on-chat-send-input {
+  width: 260px;
+  background-color: $card-color;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding-left: 5px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.unseen-message {
+  color: white;
+  font-weight: bold;
+  background-color: #415a82;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 10px;
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.fa-eye {
+  font-size: 10px;
+  opacity: 1;
+  cursor: none;
+}
+
+.conversation-message {
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  background-color: #415a82;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 8px;
+  border-radius: 8px;
+  overflow-wrap: break-word;
+  min-width: 150px;
+  max-width: 180px;
+}
+
+.on-chat-conversation:last-child {
+  scroll-snap-align: end;
+}
+
+.message-left {
+  float: left;
+  margin-left: 10px;
+}
+
+.message-right {
+  float: right;
+  margin-right: 10px;
+}
