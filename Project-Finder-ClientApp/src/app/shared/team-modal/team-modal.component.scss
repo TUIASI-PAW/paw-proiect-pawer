@@ -1,0 +1,16 @@
+.fas {
+  opacity: 0.6;
+  cursor: pointer;
+  
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.fa-check {
+  color: green;
+}
+
+.deny {
+  color: red;
+}
