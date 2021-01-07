@@ -12,12 +12,7 @@ import {
 } from '@angular/core';
 import * as SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
-
-var stompClient = null;
-var isOpened = false;
-var lastConversation = [];
-var lastUnseen = [];
-var partner = null;
+import { stat } from 'fs';
 
 @Component({
   selector: 'app-chat',
@@ -32,6 +27,9 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   _conversation: ReadMessage[] = [];
   _unseenMessages: ReadMessage[] = [];
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
+  serverUrl = 'http://127.0.0.1:8080/socket';
+  ws = new SockJS(this.serverUrl);
+  stompClient = Stomp.over(this.ws);
 
   constructor(
     private tokenStorage: TokenStorageService,
@@ -81,7 +79,6 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
   openChat = () => {
     this.isChatOpened = true;
-    isOpened = true;
     this.httpService
       .getAll(
         'messages/unseen/receiver/' + this.tokenStorage.getUser().username
@@ -89,7 +86,6 @@ export class ChatComponent implements OnInit, AfterViewChecked {
       .subscribe(
         (messages: ReadMessage[]) => {
           this.unseenMessages = messages;
-          lastUnseen = this.unseenMessages;
         },
         (err) => {
           console.log(err);
@@ -99,55 +95,57 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
   closeChat = () => {
     this.isChatOpened = false;
-    isOpened = false;
     this.receiver = '';
-    partner = '';
     this._conversation = [];
     this.unseenMessages = [];
   };
 
   initializeWebSocketConnection() {
-    const serverUrl = 'http://127.0.0.1:8080/socket';
-    const ws = new SockJS(serverUrl);
-    stompClient = Stomp.over(ws);
-    var username = this.tokenStorage.getUser().username;
+    let state = this;
 
-    stompClient.connect(
+    this.stompClient.connect(
       {},
       function (frame) {
-        stompClient.subscribe(
-          '/message/' + username,
+        state.stompClient.subscribe(
+          '/message/' + state.tokenStorage.getUser().username,
           (message) => {
             if (message.body) {
               const postedMessage: ReadMessage = JSON.parse(message.body);
-              const findMessage = lastConversation.find(
+              const findMessage = state.conversation.find(
                 (m) => m.id === postedMessage.id
               );
-
-              if(postedMessage.receiver === username && postedMessage.sender !== partner ) {
-                  lastUnseen.push(postedMessage);
-                  lastUnseen = lastUnseen
-                  return;
-                }
 
               if (findMessage) {
                 findMessage.seen = true;
                 return;
               }
 
-              if (postedMessage.receiver === username) {
-                if (isOpened) {
+              if (
+                postedMessage.receiver ===
+                  state.tokenStorage.getUser().username &&
+                postedMessage.sender !== state.receiver
+              ) {
+                state.unseenMessages.push(postedMessage);
+                state.unseenMessages = state.unseenMessages;
+                return;
+              }
+
+              if (
+                postedMessage.receiver === state.tokenStorage.getUser().username
+              ) {
+                if (state.isChatOpened) {
                   postedMessage.seen = true;
-                  stompClient.send(
+                  state.stompClient.send(
                     '/app/update/message',
                     {},
                     JSON.stringify(postedMessage)
                   );
                 } else {
-                  lastUnseen.push(postedMessage);
+                  state.unseenMessages.push(postedMessage);
                 }
               }
-              lastConversation.push(postedMessage);
+
+              state.conversation.push(postedMessage);
             }
           },
           (err) => console.log(err)
@@ -167,13 +165,15 @@ export class ChatComponent implements OnInit, AfterViewChecked {
       sender: this.tokenStorage.getUser().username,
       receiver: this.receiver,
     };
-    stompClient.send('/app/send/message', {}, JSON.stringify(messageToSend));
+    this.stompClient.send(
+      '/app/send/message',
+      {},
+      JSON.stringify(messageToSend)
+    );
     this.textToSend = '';
   }
 
   getConversation() {
-    partner = this.receiver;
-
     this.httpService
       .getAll(
         'messages/sender/' +
@@ -184,7 +184,6 @@ export class ChatComponent implements OnInit, AfterViewChecked {
       .subscribe(
         (messages: ReadMessage[]) => {
           this.conversation = messages;
-          lastConversation = this.conversation;
           this.markMessagesAsSeen();
         },
         (err) => {
@@ -216,7 +215,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
           .subscribe(
             () => {
               message.seen = true;
-              stompClient.send(
+              this.stompClient.send(
                 '/app/update/message',
                 {},
                 JSON.stringify(message)
@@ -225,7 +224,6 @@ export class ChatComponent implements OnInit, AfterViewChecked {
               this.unseenMessages = this.unseenMessages.filter(
                 (m) => m.id !== message.id
               );
-              lastUnseen = this.unseenMessages;
             },
             (err) => {
               console.log(err);
