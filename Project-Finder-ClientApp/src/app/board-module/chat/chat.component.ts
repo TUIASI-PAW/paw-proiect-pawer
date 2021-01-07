@@ -12,7 +12,6 @@ import {
 } from '@angular/core';
 import * as SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
-import { stat } from 'fs';
 
 @Component({
   selector: 'app-chat',

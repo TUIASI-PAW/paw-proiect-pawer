@@ -36,4 +36,13 @@ export class NavbarComponent implements OnInit {
   toggleCollapsed() {
     this.isCollapsed = !this.isCollapsed;
   }
+
+  getUsername() {
+  return this.tokenStorageService.getUser().username;
+  }
+
+  logout() {
+    this.tokenStorageService.signOut();
+    this.router.navigate(['/login']);
+  }
 }

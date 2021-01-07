@@ -25,3 +25,26 @@ img {
     padding-top: 0;
   }
 }
+
+.log-out {
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  margin-right: 100px;
+}
+
+.fa-sign-out-alt {
+  font-size: 20px;
+  opacity: 0.7;
+  margin-left: 20px;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.fa-house-user {
+  margin-right: 5px;
+  opacity: 0.8;
+}

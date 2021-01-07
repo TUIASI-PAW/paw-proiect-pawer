@@ -1,8 +1,8 @@
 <nav class="navbar navbar-expand-lg navbar-dark menu">
 
-  <a class="navbar-brand" href="/login">
+  <div class="navbar-brand">
     <img src="../../../assets/logo.png" />
-  </a>
+  </div>
 
   <button *ngIf="isUserLoggedIn()" class="navbar-toggler" (click)="toggleCollapsed()" type="button"
     aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span>
@@ -20,6 +20,12 @@
         <a class="nav-link" (click)="navigateToProfile()">Profile</a>
       </li>
     </ul>
+
+    <div class="log-out">
+      <i class="fas fa-house-user"></i>
+      {{getUsername()}}
+      <i class="fas fa-sign-out-alt" (click)="logout()"></i>
+    </div>
   </div>
-  
+
 </nav>
