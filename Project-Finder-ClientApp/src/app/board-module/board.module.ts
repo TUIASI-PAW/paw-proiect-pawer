@@ -1,6 +1,5 @@
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MyProjectsComponent } from './my-projects/my-projects.component';
@@ -12,7 +11,6 @@ import { DetailsComponent } from './details/details.component';
 import { EditModalComponent } from '../shared/edit-modal/edit-modal.component';
 import { DeleteModalComponent } from '../shared/delete-modal/delete-modal.component';
 import { TeamModalComponent } from '../shared/team-modal/team-modal.component';
-import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
   declarations: [
