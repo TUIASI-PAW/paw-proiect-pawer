@@ -256,11 +256,11 @@ export class DetailsComponent implements OnInit {
               }
             }
           }
-          this.router.navigate(['/board/find']);
+          this.router.navigate(['/board/myProjects']);
         },
         () => {
           this.willingNames = [];
-          this.router.navigate(['/board/find']);
+          this.router.navigate(['/board/myProjects']);
         }
       );
     }

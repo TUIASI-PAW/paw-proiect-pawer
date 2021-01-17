@@ -2,7 +2,6 @@ import { ChatComponent } from './../board-module/chat/chat.component';
 import { AddModalComponent } from './../shared/add-modal/add-modal.component';
 import { BoardModule } from './../board-module/board.module';
 import { FindComponent } from './../board-module/find/find.component';
-import { MyProfileComponent } from './../board-module/my-profile/my-profile.component';
 import { MyProjectsComponent } from './../board-module/my-projects/my-projects.component';
 import { HttpInterceptorService } from './../services/http-interceptor/http-interceptor.service';
 import { LoginComponent } from './login/login.component';
@@ -31,11 +30,6 @@ import { DetailsComponent } from '../board-module/details/details.component';
       {
         path: 'board/myProjects',
         component: MyProjectsComponent,
-        pathMatch: 'full',
-      },
-      {
-        path: 'board/profile',
-        component: MyProfileComponent,
         pathMatch: 'full',
       },
       { path: 'board/find', component: FindComponent, pathMatch: 'full' },

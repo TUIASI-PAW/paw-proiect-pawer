@@ -77,19 +77,23 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   }
 
   openChat = () => {
-    this.isChatOpened = true;
-    this.httpService
-      .getAll(
-        'messages/unseen/receiver/' + this.tokenStorage.getUser().username
-      )
-      .subscribe(
-        (messages: ReadMessage[]) => {
-          this.unseenMessages = messages;
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
+    if (this.users.length > 0) {
+      this.receiver = this.users[0].username;
+      this.isChatOpened = true;
+      this.httpService
+        .getAll(
+          'messages/unseen/receiver/' + this.tokenStorage.getUser().username
+        )
+        .subscribe(
+          (messages: ReadMessage[]) => {
+            this.unseenMessages = messages;
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
+      this.getConversation();
+    }
   };
 
   closeChat = () => {
